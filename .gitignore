@@ -1,0 +1,8 @@
+# vim files
+*.swp
+
+# emacs files
+*~
+
+# npm log
+npm-debug.log*
