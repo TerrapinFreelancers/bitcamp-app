@@ -1,5 +1,6 @@
 {
-  "name": "Bitcamp App",
+  "name": "bitcamp-app",
+  "description": "Bitcamp App",
   "version": "0.0.1",
   "repository": {
     "type": "git",
@@ -8,6 +9,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
+  "license": "ISC",
   "dependencies": {
     "react": "15.3.1",
     "react-native": "0.32.0"
