@@ -9,7 +9,7 @@ import MentorsScene from './scenes/MentorsScene'
 //credit to/documentation at
 //https://github.com/skv-headless/react-native-scrollable-tab-view
 
-var ScrollableTabView = require('react-native-scrollable-tab-view');
+import ScrollableTabView from 'react-native-scrollable-tab-view';
 
 export default class MenuTab extends Component {
 
