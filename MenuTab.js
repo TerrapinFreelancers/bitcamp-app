@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, Platform } from 'react-native';
+import { Platform } from 'react-native';
 
 import ScheduleScene from './scenes/ScheduleScene';
-import CompanyInfoScene from './scenes/CompanyInfoScene'
-import MapScene from './scenes/MapScene'
-import MentorsScene from './scenes/MentorsScene'
+import CompanyInfoScene from './scenes/CompanyInfoScene';
+import MapScene from './scenes/MapScene';
+import MentorsScene from './scenes/MentorsScene';
 
 //credit to/documentation at
 //https://github.com/skv-headless/react-native-scrollable-tab-view
@@ -14,7 +14,7 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 export default class MenuTab extends Component {
 
   render() {
-    var menuTabPosition;
+    let menuTabPosition;
     if (Platform.OS === 'android') {
       menuTabPosition = "top";
     }
