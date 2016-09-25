@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, WebView, ScrollView } from 'react-native';
 
 export default class MentorsScene extends Component {
   static get defaultProps() {
@@ -10,9 +10,9 @@ export default class MentorsScene extends Component {
 
   render() {
     return (
-      <View>
-        <Text>Hi! My name is {this.props.title}.</Text>
-      </View>
-    )
+      <WebView
+        source={{uri: 'http://mentorship.bitca.mp/'}} 
+      />
+    );
   }
 }
