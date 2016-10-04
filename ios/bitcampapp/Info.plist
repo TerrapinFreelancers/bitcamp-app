@@ -38,8 +38,16 @@
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Aleo-BoldItalic.otf</string>
+		<string>Aleo-Bold.otf</string>
+		<string>Aleo-Italic.otf</string>
+		<string>Aleo-Light.otf</string>
+		<string>Aleo-LightItalic.otf</string>
+		<string>Aleo-Regular.otf</string>
+	</array>
 	<key>NSAppTransportSecurity</key>
-	<!--See http://ste.vn/2015/06/10/configuring-app-transport-security-ios-9-osx-10-11/ -->
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
