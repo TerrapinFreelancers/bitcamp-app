@@ -5,6 +5,7 @@ import ScheduleScene from './scenes/ScheduleScene';
 import CompanyInfoScene from './scenes/CompanyInfoScene';
 import MapScene from './scenes/MapScene';
 import MentorsScene from './scenes/MentorsScene';
+import IntroScene from './scenes/IntroScene';
 
 //credit to/documentation at
 //https://github.com/skv-headless/react-native-scrollable-tab-view
@@ -46,6 +47,7 @@ export default class MenuTab extends Component {
       initialPage={1}
       renderTabBar={() => <CustomTabBarOverlay />}
       >
+        <IntroScene tabLabel={introIcon}/>
         <ScheduleScene tabLabel={scheduleIcon} />
         <MapScene tabLabel={mapIcon} />
         <CompanyInfoScene tabLabel={companyInfoIcon} />

@@ -40,6 +40,12 @@
     <string/>
     <key>UIAppFonts</key>
     <array>
+      <string>Aleo-BoldItalic.otf</string>
+      <string>Aleo-Bold.otf</string>
+      <string>Aleo-Italic.otf</string>
+      <string>Aleo-Light.otf</string>
+      <string>Aleo-LightItalic.otf</string>
+      <string>Aleo-Regular.otf</string>
       <string>Entypo.ttf</string>
       <string>EvilIcons.ttf</string>
       <string>FontAwesome.ttf</string>
