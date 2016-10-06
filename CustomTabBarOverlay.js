@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import { colors } from './shared/styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const CustomTabBarOverlay = React.createClass({
@@ -34,7 +35,7 @@ const CustomTabBarOverlay = React.createClass({
           <Icon
             name={tab}
             size={30}
-            color={this.props.activeTab === i ? 'rgb(255,111,63)' : 'rgb(204,204,204)'}
+            color={this.props.activeTab === i ? colors.bitcampOrange : 'rgb(204,204,204)'}
             ref={(icon) => { this.tabIcons[i] = icon; }}
           />
         </TouchableOpacity>;
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
   tabUnderlineStyle: {
     position: 'absolute',
     height: 4,
-    backgroundColor: 'rgb(255,111,63)',
+    backgroundColor: colors.bitcampOrange,
     bottom: 0,
   },
   tab: {
