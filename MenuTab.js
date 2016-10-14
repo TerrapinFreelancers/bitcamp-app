@@ -42,10 +42,10 @@ export default class MenuTab extends Component {
 
     return (
       <ScrollableTabView
-      tabBarPosition={menuTabPosition}
-      style={{marginTop: 20, }}
-      initialPage={1}
-      renderTabBar={() => <CustomTabBarOverlay />}
+        tabBarPosition={menuTabPosition}
+        style={{marginTop: 20, }}
+        initialPage={1}
+        renderTabBar={() => <CustomTabBarOverlay />}
       >
         <IntroScene tabLabel={introIcon}/>
         <ScheduleScene tabLabel={scheduleIcon} />

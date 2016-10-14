@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,15 +10,7 @@ import {
 import { colors } from './shared/styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const CustomTabBarOverlay = React.createClass({
-  tabIcons: [],
-
-  propTypes: {
-    goToPage: React.PropTypes.func,
-    activeTab: React.PropTypes.number,
-    tabs: React.PropTypes.array,
-  },
-
+class CustomTabBarOverlay extends Component {
   render() {
     const containerWidth = this.props.containerWidth;
     const numberOfTabs = this.props.tabs.length;
@@ -31,19 +23,26 @@ const CustomTabBarOverlay = React.createClass({
 
     return <View style={[styles.tabs, this.props.style, ]}>
       {this.props.tabs.map((tab, i) => {
-        return <TouchableOpacity key={tab} onPress={() => this.props.goToPage(i)} style={styles.tab}>
+        return <TouchableOpacity key={tab}
+          onPress={() => this.props.goToPage(i)} style={styles.tab}>
           <Icon
             name={tab}
             size={30}
-            color={this.props.activeTab === i ? colors.bitcampOrange : 'rgb(204,204,204)'}
-            ref={(icon) => { this.tabIcons[i] = icon; }}
+            color={this.props.activeTab === i ?
+              colors.bitcampOrange : 'rgb(204,204,204)'}
           />
         </TouchableOpacity>;
       })}
       <Animated.View style={[styles.tabUnderlineStyle, eachTabWidth, { left, }, ]} />
     </View>;
-  },
-});
+  }
+}
+
+CustomTabBarOverlay.propTypes = {
+  goToPage: React.PropTypes.func,
+  activeTab: React.PropTypes.number,
+  tabs: React.PropTypes.array
+};
 
 const styles = StyleSheet.create({
   tabUnderlineStyle: {
