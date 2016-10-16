@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, WebView, ScrollView, TextInput, TouchableWithoutFeedback, TouchableOpacity, StyleSheet } from 'react-native';
 
-var HEADER = '#3b5998';
+var HEADER = '#1A2E33';
 var BGWASH = 'rgba(255,255,255,0.8)';
 var DISABLED_WASH = 'rgba(255,255,255,0.25)';
 
