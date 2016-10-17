@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, WebView, ScrollView, TextInput, TouchableWithoutFeedback, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, WebView, ScrollView, TextInput, 
+TouchableWithoutFeedback, TouchableOpacity, StyleSheet } from 'react-native';
+import { colors } from '../shared/styles';
 
-var HEADER = '#1A2E33';
-var BGWASH = 'rgba(255,255,255,0.8)';
-var DISABLED_WASH = 'rgba(255,255,255,0.25)';
-
-var TEXT_INPUT_REF = 'urlInput';
-var WEBVIEW_REF = 'webview';
 var DEFAULT_URL = 'https://mentorship.bitca.mp';
 
 export default class MentorsScene extends Component {
@@ -19,39 +15,30 @@ export default class MentorsScene extends Component {
     scalesPageToFit: true,
   };
 
-  inputText = '';
-
-  handleTextInputChange = (event) => {
-    var url = event.nativeEvent.text;
-    if (!/^[a-zA-Z-_]+:/.test(url)) {
-      url = 'https://' + url;
-    }
-    this.inputText = url;
-  };
-
   render() {
-    this.inputText = this.state.url;
 
     return (
       <View style={[styles.container]}>
         <View style={[styles.addressBarRow]}>
           <TouchableOpacity
             onPress={this.goBack}
-            style={this.state.backButtonEnabled ? styles.navButton : styles.disabledButton}>
+            style={this.state.backButtonEnabled ? styles.navButton : 
+            styles.disabledButton}>
             <Text>
                {'<'}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={this.goForward}
-            style={this.state.forwardButtonEnabled ? styles.navButton : styles.disabledButton}>
+            style={this.state.forwardButtonEnabled ? styles.navButton : 
+            styles.disabledButton}>
             <Text>
               {'>'}
             </Text>
           </TouchableOpacity>
         </View>
         <WebView
-          ref={WEBVIEW_REF}
+          ref={(view) => this.webview = view}
           automaticallyAdjustContentInsets={false}
           style={styles.webView}
           source={{uri: this.state.url}}
@@ -71,19 +58,14 @@ export default class MentorsScene extends Component {
   }
 
   goBack = () => {
-    this.refs[WEBVIEW_REF].goBack();
+    this.webview.goBack();
   };
 
   goForward = () => {
-    this.refs[WEBVIEW_REF].goForward();
-  };
-
-  reload = () => {
-    this.refs[WEBVIEW_REF].reload();
+    this.webview.goForward();
   };
 
   onShouldStartLoadWithRequest = (event) => {
-    // Implement any custom loading logic here, don't forget to return!
     return true;
   };
 
@@ -102,18 +84,18 @@ export default class MentorsScene extends Component {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: HEADER,
+    backgroundColor: colors.midnightBlue,
   },
   addressBarRow: {
     flexDirection: 'row',
     padding: 8,
   },
   webView: {
-    backgroundColor: BGWASH,
+    backgroundColor: colors.BGWASH,
     height: 350,
   },
   addressBarTextInput: {
-    backgroundColor: BGWASH,
+    backgroundColor: colors.BGWASH,
     borderColor: 'transparent',
     borderRadius: 3,
     borderWidth: 1,
@@ -130,7 +112,7 @@ var styles = StyleSheet.create({
     marginRight: 3,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: BGWASH,
+    backgroundColor: colors.BGWASH,
     borderColor: 'transparent',
     borderRadius: 3,
   },
@@ -140,7 +122,7 @@ var styles = StyleSheet.create({
     marginRight: 3,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: DISABLED_WASH,
+    backgroundColor: colors.DISABLED_WASH,
     borderColor: 'transparent',
     borderRadius: 3,
   },
@@ -149,7 +131,7 @@ var styles = StyleSheet.create({
     padding: 3,
     marginLeft: 8,
     alignItems: 'center',
-    backgroundColor: BGWASH,
+    backgroundColor: colors.BGWASH,
     borderColor: 'transparent',
     borderRadius: 3,
     alignSelf: 'stretch',
