@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, WebView, ScrollView, TextInput, 
-TouchableWithoutFeedback, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, WebView, TouchableWithoutFeedback, 
+  TouchableOpacity, StyleSheet } from 'react-native';
 import { colors } from '../shared/styles';
 
-var DEFAULT_URL = 'https://mentorship.bitca.mp';
+const DEFAULT_URL = 'https://mentorship.bitca.mp';
 
 export default class MentorsScene extends Component {
   state = {
@@ -18,8 +18,8 @@ export default class MentorsScene extends Component {
   render() {
 
     return (
-      <View style={[styles.container]}>
-        <View style={[styles.addressBarRow]}>
+      <View style={styles.container}>
+        <View style={styles.addressBarRow}>
           <TouchableOpacity
             onPress={this.goBack}
             style={this.state.backButtonEnabled ? styles.navButton : 
@@ -81,7 +81,7 @@ export default class MentorsScene extends Component {
 
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.midnightBlue,
