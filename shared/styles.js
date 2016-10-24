@@ -10,6 +10,8 @@ const colors = {
   midnightBlue:  '#1A2E33',
   mediumBlue:    '#528CA5',
   skyBlue:       '#CBF2FF',
+  BGWASH:        'rgba(255,255,255,0.8)',
+  DISABLED_WASH: 'rgba(255,255,255,0.25)',
 };
 
 export { colors };
