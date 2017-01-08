@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, WebView, TouchableWithoutFeedback, 
+import { View, Text, WebView, TouchableWithoutFeedback, InteractionManager,
   TouchableOpacity, StyleSheet } from 'react-native';
 import { colors } from '../shared/styles';
 
@@ -13,9 +13,19 @@ export default class MentorsScene extends Component {
     forwardButtonEnabled: false,
     loading: true,
     scalesPageToFit: true,
+    renderPlaceholderOnly: true,
   };
 
+  componentDidMount() {
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({renderPlaceholderOnly: false});
+    });
+  }
+
   render() {
+    if (this.state.renderPlaceholderOnly) {
+      return this._renderPlaceholderView();
+    }
 
     return (
       <View style={styles.container}>
@@ -57,6 +67,13 @@ export default class MentorsScene extends Component {
     );
   }
 
+  _renderPlaceholderView() {
+    return (
+      <View style={styles.container}>
+      </View>
+    );
+  }
+
   goBack = () => {
     this.webview.goBack();
   };
@@ -84,7 +101,7 @@ export default class MentorsScene extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.midnightBlue,
+    backgroundColor: colors.midnightBLue,
   },
   addressBarRow: {
     flexDirection: 'row',
