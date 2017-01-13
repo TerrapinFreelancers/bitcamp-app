@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import { AppRegistry, View, Text, ListView, StyleSheet } from 'react-native';
 import Accordion from 'react-native-accordion';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { colors } from '../shared/styles';
+import aleofy from '../shared/aleo';
+
+const AleoText = aleofy(Text);
+const BoldAleoText = aleofy(Text, 'Bold'); 
+const downIcon = (<Icon name="chevron-down"/>);
+const upIcon = (<Icon name="chevron-up"/>);
 
 class AccordionMenu extends Component {
   constructor(props) {
@@ -24,11 +32,17 @@ class AccordionMenu extends Component {
   _renderRow(rowData) {
 
     var header = (
+
       <View style={styles.header}>
-        <Text>
-          <Text> {rowData[0]}     </Text>
-          <Text>{rowData[1]}</Text>
-        </Text>
+        <View style = {{flex: 1}}>
+          <Text style = {{fontFamily: 'Aleo'}}>{rowData[0]}</Text>
+        </View>
+        <View style = {{flex: 1}}>
+          <Text style = {{fontFamily: 'Aleo'}}>{rowData[1]}</Text>
+        </View>
+        <View style = {{flex: 1}}>
+          <Text style = {{textAlign: 'right'}}>{downIcon}</Text>
+        </View>
       </View>
     );
 
@@ -38,7 +52,7 @@ class AccordionMenu extends Component {
     if(rowData[0] == "DATEHEADER"){
       header = (
         <View style={styles.date_header}>
-          <Text style={{color: '#ffffff', fontWeight: 'bold'}}>{rowData[1]}</Text>
+          <BoldAleoText style={{color: '#ffffff'}}>{rowData[1]}</BoldAleoText>
         </View>
       );
 
@@ -55,7 +69,7 @@ class AccordionMenu extends Component {
       
     content = (
         <View style={{
-          backgroundColor: '#eeeeee'
+          backgroundColor: '#ffffff'
         }}>
           <Text style={styles.content}>{rowData[2]}</Text>
           <Text style={styles.content}>Company: {rowData[3]}</Text>
@@ -118,7 +132,9 @@ const styles = StyleSheet.create({
         paddingBottom: 20,
         borderBottomWidth: 1,
         borderBottomColor: '#a9a9a9',
-        backgroundColor: '#e5d8ce'
+        backgroundColor: '#e5d8ce',
+        flex: 1, 
+        flexDirection: 'row'
   },
   date_header: {
        paddingTop: 10,
