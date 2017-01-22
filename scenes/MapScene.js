@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import PDFView from 'react-native-pdf-view';
+import { ScrollView, Text, Image, Dimensions } from 'react-native';
 
 export default class MapScene extends Component {
 
@@ -8,30 +7,18 @@ export default class MapScene extends Component {
     super(props);
   }
 
-  static get defaultProps() {
-    return {
-      title: 'Map'
-    };
-  }
-
   render() {
+    var window = Dimensions.get('window');
     return (
-      <View>
-        <PDFView ref={(pdf)=>{this.pdfView = pdf;}}
-          path={"images/floor_plan_2017.pdf"}
-          onLoadComplete = {(pageCount)=>{
-            this.pdfView.setNativeProps({
-              zoom: 1.5
-            });
+      <ScrollView>
+        <Image 
+          source={require('./images/floor_plan_2017.png')} 
+          style={{
+            width: window.width,
+            height: window.height
           }}
-          style={styles.pdf}/>
-      </View>
+        />
+      </ScrollView>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  pdf: {
-    flex:1
-  }
-});
