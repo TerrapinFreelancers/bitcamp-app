@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, Image, Dimensions } from 'react-native';
+import { ScrollView, Text, Image } from 'react-native';
 
 function MapScene() {
-  var window = Dimensions.get('window');
   return (
     <ScrollView directionLockEnabled={false}
                 horizontal={true}>
@@ -12,7 +11,7 @@ function MapScene() {
         />
       </ScrollView>
     </ScrollView>
-  )
+  );
 }
 
-export default MapScene
+export default MapScene;
