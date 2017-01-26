@@ -10,8 +10,10 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "license": "ISC",
-  "rnpm":{
-    "assets": ["node_modules/react-native-vector-icons/Fonts"]
+  "rnpm": {
+    "assets": [
+      "node_modules/react-native-vector-icons/Fonts"
+    ]
   },
   "dependencies": {
     "react": "15.3.1",

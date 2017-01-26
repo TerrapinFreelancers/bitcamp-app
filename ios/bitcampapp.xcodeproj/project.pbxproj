@@ -21,16 +21,13 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
-
 		27F9E2511D978CCC0010E273 /* FontAwesome.js in Resources */ = {isa = PBXBuildFile; fileRef = 27F9E2501D978CCC0010E273 /* FontAwesome.js */; };
-
 		271740FA1DA1BC7000EBDDDF /* Aleo-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 271740F41DA1BC7000EBDDDF /* Aleo-Bold.otf */; };
 		271740FB1DA1BC7000EBDDDF /* Aleo-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 271740F51DA1BC7000EBDDDF /* Aleo-BoldItalic.otf */; };
 		271740FC1DA1BC7000EBDDDF /* Aleo-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 271740F61DA1BC7000EBDDDF /* Aleo-Italic.otf */; };
 		271740FD1DA1BC7000EBDDDF /* Aleo-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 271740F71DA1BC7000EBDDDF /* Aleo-Light.otf */; };
 		271740FE1DA1BC7000EBDDDF /* Aleo-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 271740F81DA1BC7000EBDDDF /* Aleo-LightItalic.otf */; };
 		271740FF1DA1BC7000EBDDDF /* Aleo-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 271740F91DA1BC7000EBDDDF /* Aleo-Regular.otf */; };
-
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		AFC01FCC71974EE5822AA37C /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DAA2E985BED4A308127BAEA /* libRNVectorIcons.a */; };
 		D9A591722FEC4B79B462851A /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F66303B8C3DF47A0AAFC7EF5 /* Entypo.ttf */; };
@@ -143,7 +140,6 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = bitcampapp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = bitcampapp/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
-
 		27F9E2501D978CCC0010E273 /* FontAwesome.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = FontAwesome.js; path = "../node_modules/react-native-vector-icons/FontAwesome.js"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -157,14 +153,12 @@
 		B5AD385E781349958E40AEF6 /* MaterialIcons.ttf */ = {isa = PBXFileReference; name = "MaterialIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		5057F338CDE248F19F9C6D22 /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		9E7D975AB497449C821E948B /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-
 		271740F41DA1BC7000EBDDDF /* Aleo-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Aleo-Bold.otf"; sourceTree = "<group>"; };
 		271740F51DA1BC7000EBDDDF /* Aleo-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Aleo-BoldItalic.otf"; sourceTree = "<group>"; };
 		271740F61DA1BC7000EBDDDF /* Aleo-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Aleo-Italic.otf"; sourceTree = "<group>"; };
 		271740F71DA1BC7000EBDDDF /* Aleo-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Aleo-Light.otf"; sourceTree = "<group>"; };
 		271740F81DA1BC7000EBDDDF /* Aleo-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Aleo-LightItalic.otf"; sourceTree = "<group>"; };
 		271740F91DA1BC7000EBDDDF /* Aleo-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Aleo-Regular.otf"; sourceTree = "<group>"; };
-
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -346,12 +340,9 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* bitcampappTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
-
 				27F9E2501D978CCC0010E273 /* FontAwesome.js */,
 				B2A7396087744ACF962AAA27 /* Resources */,
-
 				2717410A1DA1BC7B00EBDDDF /* Resources */,
-
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -582,7 +573,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-
 				27F9E2511D978CCC0010E273 /* FontAwesome.js in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
@@ -594,14 +584,12 @@
 				443FE0C38FB34B48804556FB /* MaterialIcons.ttf in Resources */,
 				734296FAD4E843C7850DF3EE /* Octicons.ttf in Resources */,
 				5DE792ACE25B468A86BF5CFA /* Zocial.ttf in Resources */,
-
 				271740FC1DA1BC7000EBDDDF /* Aleo-Italic.otf in Resources */,
 				271740FE1DA1BC7000EBDDDF /* Aleo-LightItalic.otf in Resources */,
 				271740FD1DA1BC7000EBDDDF /* Aleo-Light.otf in Resources */,
 				271740FA1DA1BC7000EBDDDF /* Aleo-Bold.otf in Resources */,
 				271740FB1DA1BC7000EBDDDF /* Aleo-BoldItalic.otf in Resources */,
 				271740FF1DA1BC7000EBDDDF /* Aleo-Regular.otf in Resources */,
-
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
