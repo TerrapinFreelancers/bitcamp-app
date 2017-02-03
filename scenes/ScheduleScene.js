@@ -4,21 +4,58 @@ import Accordion from 'react-native-accordion';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors } from '../shared/styles';
 import aleofy from '../shared/aleo';
+import * as firebase from 'firebase';
+
+// Initialize Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyCDA47vn27sRJVu575IcduceK7ahZsWrJA",
+  authDomain: "bitcamp-app.firebaseapp.com",
+  databaseURL: "https://bitcamp-app.firebaseio.com/",
+  storageBucket: ""
+};
+const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 const AleoText = aleofy(Text);
-const BoldAleoText = aleofy(Text, 'Bold'); 
+const BoldAleoText = aleofy(Text, 'Bold');
 const downIcon = (<Icon name="chevron-down"/>);
 const upIcon = (<Icon name="chevron-up"/>);
 
 class AccordionMenu extends Component {
   constructor(props) {
     super(props);
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    // const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
     this.state = {
-        dataSource: ds.cloneWithRows(this._genRows({})),
+        //dataSource: ds,
+        dataSource: this.ds.cloneWithRows(this._genRows({})),
     };
+    this.itemsRef = this.getRef();
   }
- 
+
+  listenForItems(itemsRef) {
+    itemsRef.on('value', (snap) => {
+      console.log("some snapshot received");
+      var jsonDataBlob = snap.exportVal();
+      console.log(jsonDataBlob);
+      // get children as an array
+      //var items = [];
+      // snap.forEach((child) => {
+      //   console.log(child.key);
+      // });
+
+      this.setState({
+        dataSource: this.ds.cloneWithRows(jsonDataBlob.Schedule)
+      });
+
+    });
+  }
+
+  componentDidMount() {
+    console.log("in mounting function");
+    this.listenForItems(this.itemsRef);
+  }
+
   render() {
     console.log(this.state.dataSource);
     return (
@@ -28,7 +65,12 @@ class AccordionMenu extends Component {
       />
     );
   }
- 
+
+  getRef() {
+    console.log("ref requested");
+    return firebaseApp.database().ref();
+  }
+
   _renderRow(rowData) {
 
     var header = (
@@ -66,7 +108,7 @@ class AccordionMenu extends Component {
       />
     );
     }
-      
+
     content = (
         <View style={{
           backgroundColor: '#ffffff'
@@ -91,26 +133,26 @@ class AccordionMenu extends Component {
     //these are the data needed for schedule information.
     var dataBlob = [];
 
-    //array to modify in firebase [event time, event name, event description, event company, event location]
-    var scheduleInfo = 
-    [["DATEHEADER", "April xxth"],
-    ["00:00 AM", "Intro", "introducing blah blah", "FINRA", "hi"], 
-    ["00:00 PM", "Next One", "no one cares blah", "Google", "hello"],
-    ["DATEHEADER", "April xxth"],
-    ["00:00 PM", "Last", "generic content lol", "MITRE", "sohai"]];
-
-    //arbitrary data blobs for accordion menu's sections
-    for(var i = 0; i < scheduleInfo.length; i++){
-      dataBlob.push(scheduleInfo[i]);
-    }
+    // //array to modify in firebase [event time, event name, event description, event company, event location]
+    // var scheduleInfo =
+    // [["DATEHEADER", "April xxth"],
+    // ["00:00 AM", "Intro", "introducing blah blah", "FINRA", "hi"],
+    // ["00:00 PM", "Next One", "no one cares blah", "Google", "hello"],
+    // ["DATEHEADER", "April xxth"],
+    // ["00:00 PM", "Last", "generic content lol", "MITRE", "sohai"]];
+    //
+    // //arbitrary data blobs for accordion menu's sections
+    // for(var i = 0; i < scheduleInfo.length; i++){
+    //   dataBlob.push(scheduleInfo[i]);
+    // }
 
     return dataBlob;
   }
-  
+
 }
 
 export default class ScheduleScene extends Component {
-  
+
   static get defaultProps() {
     return {
       title: 'Schedule'
@@ -133,7 +175,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#a9a9a9',
         backgroundColor: '#e5d8ce',
-        flex: 1, 
+        flex: 1,
         flexDirection: 'row'
   },
   date_header: {
