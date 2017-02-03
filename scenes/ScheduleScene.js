@@ -30,7 +30,6 @@ class AccordionMenu extends Component {
   }
  
   _renderRow(rowData) {
-
     var header = (
 
       <View style={styles.header}>
@@ -41,7 +40,7 @@ class AccordionMenu extends Component {
           <Text style = {{fontFamily: 'Aleo'}}>{rowData[1]}</Text>
         </View>
         <View style = {{flex: 1}}>
-          <Text style = {{textAlign: 'right'}}>{downIcon}</Text>
+          <Text style = {{textAlign: 'right'}}>{icon}</Text>
         </View>
       </View>
     );
