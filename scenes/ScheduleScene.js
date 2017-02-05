@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+
 import { AppRegistry, View, Text, ListView, StyleSheet, TouchableOpacity, TouchableHighlight } from 'react-native';
 // import Accordion from 'react-native-accordion';
 import Accordion from './index'
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors } from '../shared/styles';
 import aleofy from '../shared/aleo';
@@ -20,7 +22,6 @@ const AleoText = aleofy(Text);
 const BoldAleoText = aleofy(Text, 'Bold');
 const downIcon = (<Icon name="chevron-down"/>);
 const upIcon = (<Icon name="chevron-up"/>);
-
 
 class HeaderComponent extends Component{
   constructor(props){
@@ -67,6 +68,7 @@ class HeaderComponent extends Component{
 }
 
 class AccordionMenu extends Component {
+
   constructor(props) {
     super(props);
     // const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -103,7 +105,7 @@ class AccordionMenu extends Component {
   }
 
   render() {
-    console.log(this.state.dataSource);
+
     return (
       <ListView
         dataSource={this.state.dataSource}
@@ -188,6 +190,7 @@ class AccordionMenu extends Component {
 
     // console.log('returning', toRet);
     return (
+
       <Accordion
         time={rowData[0]}
         title={rowData[1]}

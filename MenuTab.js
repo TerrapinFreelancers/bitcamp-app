@@ -43,8 +43,8 @@ export default class MenuTab extends Component {
     return (
       <ScrollableTabView
         tabBarPosition={menuTabPosition}
-        style={{marginTop: 20, }}
-        initialPage={1}
+        style={{marginTop: 20}}
+        initialPage={0}
         renderTabBar={() => <CustomTabBarOverlay />}
       >
         <IntroScene tabLabel={introIcon}/>
