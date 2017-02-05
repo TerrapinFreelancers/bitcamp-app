@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { AppRegistry, View, Text, ListView, StyleSheet } from 'react-native';
-import Accordion from 'react-native-accordion';
+import { AppRegistry, View, Text, ListView, StyleSheet, TouchableOpacity, TouchableHighlight } from 'react-native';
+// import Accordion from 'react-native-accordion';
+import Accordion from './index'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors } from '../shared/styles';
 import aleofy from '../shared/aleo';
@@ -19,6 +20,51 @@ const AleoText = aleofy(Text);
 const BoldAleoText = aleofy(Text, 'Bold');
 const downIcon = (<Icon name="chevron-down"/>);
 const upIcon = (<Icon name="chevron-up"/>);
+
+
+class HeaderComponent extends Component{
+  constructor(props){
+    super(props);
+    this.state = {on:false};
+    console.log(this.state.on);
+    this.toggle = this.toggle.bind(this);
+  }
+
+  setNativeProps(nativeProps){
+    this._root.setNativeProps(nativeProps);
+  }
+
+  toggle(){
+    console.log("INSIDE OF TOGGLE RIGHT NOW INSIDE OF TOGGLE RIGHT NOW INSIDE OF TOGGLE RIGHT NOW");
+    var nextState = !this.state.on;
+    this.setState({on: nextState});
+  }
+
+  render(){
+    var icon;
+    if (this.state.on) {
+      icon = upIcon;
+    } else {
+      icon = downIcon;
+    }
+
+    return (
+      <View ref={component => this._root = component} {...this.props}>
+         <TouchableOpacity style={styles.header} onPress={this.toggle}>
+          <View style = {{flex: 1}}>
+            <Text style = {{fontFamily: 'Aleo'}}>{this.props.time}</Text>
+          </View>
+          <View style = {{flex: 1}}>
+            <Text style = {{fontFamily: 'Aleo'}}>{this.props.title}</Text>
+          </View>
+          <View style = {{flex: 1}}>
+            <Text style = {{textAlign: 'right'}}>{icon}</Text>
+          </View>
+         </TouchableOpacity>
+      </View>
+    );
+  }
+}
 
 class AccordionMenu extends Component {
   constructor(props) {
@@ -70,23 +116,44 @@ class AccordionMenu extends Component {
     console.log("ref requested");
     return firebaseApp.database().ref();
   }
+  // header(x,y){
+  //   return function(z){
+  //     return (<HeaderComponent
+  //                     time={x}
+  //                     title={y}
+  //                     on={z}
+  //                     />)
+  //   }
+  // }
 
   _renderRow(rowData) {
 
-    var header = (
+    // var header = function(currentState){
+    //   return (<HeaderComponent
+    //                   time={rowData[0]}
+    //                   title={rowData[1]}
+    //                   on={currentState}
+    //                   />);
+    // }
 
-      <View style={styles.header}>
-        <View style = {{flex: 1}}>
-          <Text style = {{fontFamily: 'Aleo'}}>{rowData[0]}</Text>
-        </View>
-        <View style = {{flex: 1}}>
-          <Text style = {{fontFamily: 'Aleo'}}>{rowData[1]}</Text>
-        </View>
-        <View style = {{flex: 1}}>
-          <Text style = {{textAlign: 'right'}}>{downIcon}</Text>
-        </View>
-      </View>
-    );
+    // var header = (<HeaderComponent
+    //                 time={rowData[0]}
+    //                 title={rowData[1]}
+    //                 />);
+    // var header = (
+    //
+    //   <View style={styles.header}>
+    //     <View style = {{flex: 1}}>
+    //       <Text style = {{fontFamily: 'Aleo'}}>{rowData[0]}</Text>
+    //     </View>
+    //     <View style = {{flex: 1}}>
+    //       <Text style = {{fontFamily: 'Aleo'}}>{rowData[1]}</Text>
+    //     </View>
+    //     <View style = {{flex: 1}}>
+    //       <Text style = {{textAlign: 'right'}}>{downIcon}</Text>
+    //     </View>
+    //   </View>
+    // );
 
     var content = <View></View>;
 
@@ -122,6 +189,8 @@ class AccordionMenu extends Component {
     // console.log('returning', toRet);
     return (
       <Accordion
+        time={rowData[0]}
+        title={rowData[1]}
         header={header}
         content={content}
         easing="easeOutCubic"
