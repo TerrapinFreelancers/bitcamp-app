@@ -1,3 +1,5 @@
+//credit for some of code goes to https://github.com/naoufal/react-native-accordion/tree/master/examples/AccordionExample
+
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
@@ -23,6 +25,10 @@ class HeaderComponent extends Component{
     super(props);
     this.state = {on:false};
     console.log(this.state.on);
+  }
+
+  setNativeProps(nativeProps){
+    this._root.setNativeProps(nativeProps);
   }
 
   render(){
@@ -145,14 +151,14 @@ var Accordion = React.createClass({
           overflow: 'hidden'
         }}
       >
-        <TouchableOpacity
+        <TouchableHighlight
           ref="AccordionHeader"
           onPress={this._onPress}
           underlayColor={this.props.underlayColor}
           style={this.props.style}
         >
           {header}
-        </TouchableOpacity>
+        </TouchableHighlight>
         <View
           ref="AccordionContentWrapper"
           style={{
@@ -180,26 +186,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#e5d8ce',
         flex: 1,
         flexDirection: 'row'
-  },
-  date_header: {
-       paddingTop: 10,
-        paddingRight: 15,
-        paddingLeft: 15,
-        paddingBottom: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#a9a9a9',
-        backgroundColor: '#ffaf3f'
-  },
-  content: {
-        paddingTop: 15,
-        paddingRight: 15,
-        paddingBottom: 15,
-        paddingLeft: 15,
-        color: '#000',
-  },
-  text: {
-    flex: 1,
-  },
+  }
 });
 
 module.exports = Accordion;
