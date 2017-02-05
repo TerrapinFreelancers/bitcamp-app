@@ -1,16 +1,62 @@
 import React, { Component } from 'react';
-import { AppRegistry, View, Text, ListView, StyleSheet } from 'react-native';
+import { AppRegistry, View, Text, ListView, StyleSheet, TouchableHighlight, Button } from 'react-native';
 import Accordion from 'react-native-accordion';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors } from '../shared/styles';
 import aleofy from '../shared/aleo';
 
 const AleoText = aleofy(Text);
-const BoldAleoText = aleofy(Text, 'Bold'); 
+const BoldAleoText = aleofy(Text, 'Bold');
 const downIcon = (<Icon name="chevron-down"/>);
 const upIcon = (<Icon name="chevron-up"/>);
 
+class CustomHeader extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      pressed: false,
+    }
+  }
+
+  _chevPress() {
+
+    console.log("hello");
+
+    if(this.state.pressed){
+      this.setState({pressed: false});
+    }
+    else{
+      this.setState({pressed: true});
+    }
+  }
+
+  render(){
+
+    var icon = downIcon;
+
+    if(this.state.pressed){
+      icon = upIcon;
+    }
+
+    return (
+      <View style={styles.header}>
+        <View style = {{flex: 1}}>
+          <Text style = {{fontFamily: 'Aleo'}}>{this.props.rowD[0]}</Text>
+        </View>
+        <View style = {{flex: 1}}>
+          <Text style = {{fontFamily: 'Aleo'}}>{this.props.rowD[1]}</Text>
+        </View>
+        <View style = {{flex: 1}}>
+          <Text style = {{textAlign: 'right'}}>{icon}</Text>
+        </View>
+      </View>
+    )
+  }
+}
+
 class AccordionMenu extends Component {
+
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -20,7 +66,7 @@ class AccordionMenu extends Component {
   }
  
   render() {
-    console.log(this.state.dataSource);
+    
     return (
       <ListView
         dataSource={this.state.dataSource}
@@ -30,19 +76,9 @@ class AccordionMenu extends Component {
   }
  
   _renderRow(rowData) {
-    var header = (
 
-      <View style={styles.header}>
-        <View style = {{flex: 1}}>
-          <Text style = {{fontFamily: 'Aleo'}}>{rowData[0]}</Text>
-        </View>
-        <View style = {{flex: 1}}>
-          <Text style = {{fontFamily: 'Aleo'}}>{rowData[1]}</Text>
-        </View>
-        <View style = {{flex: 1}}>
-          <Text style = {{textAlign: 'right'}}>{icon}</Text>
-        </View>
-      </View>
+    var header = (
+      <CustomHeader rowD = "rowData" />
     );
 
     var content = <View></View>;
@@ -78,6 +114,7 @@ class AccordionMenu extends Component {
 
     // console.log('returning', toRet);
     return (
+
       <Accordion
         header={header}
         content={content}
