@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { ScrollView, Text, Image } from 'react-native';
 
-export default class MapScene extends Component {
-  static get defaultProps() {
-    return {
-      title: 'Map'
-    };
-  }
-
-  render() {
-    return (
-      <View>
-        <Text>Hi! My name is {this.props.title}.</Text>
-      </View>
-    )
-  }
+function MapScene() {
+  return (
+    <ScrollView directionLockEnabled={false}
+                horizontal={true}>
+      <ScrollView>
+        <Image 
+          source={require('./images/floor_plan_2017.png')} 
+        />
+      </ScrollView>
+    </ScrollView>
+  );
 }
+
+export default MapScene;
