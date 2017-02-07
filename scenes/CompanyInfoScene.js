@@ -10,7 +10,10 @@ import {
     View,
     StyleSheet,
     ScrollView,
-    ListView
+    ListView,
+    TouchableHighlight,
+    RecyclerViewBackedScrollView,
+    Navigator
 } from 'react-native';
 import * as firebase from 'firebase';
 import {
@@ -18,31 +21,118 @@ import {
 } from '../shared/styles';
 import aleofy from '../shared/aleo';
 
+var UIExplorerPage = require('./dependencies/UIExplorerPage');
 
-class List extends Component {
-    constructor(props) {
-        super(props);
-        const ds = new ListView.DataSource({
-            rowHasChanged: (r1, r2) => r1 !== r2
+var List = React.createClass({
+    getInitialState: function() {
+        var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+        getData(this, function(returnValue, param) {
+            ds._dataBlob = returnValue;
+            param.setState({
+                dataSource: param.state.dataSource.cloneWithRows(returnValue)
+            })
+            console.log(ds);
         });
-        this.state = {
-            dataSource: ds.cloneWithRows([
-                'John', 'Joel', 'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin'
-            ])
+        return {
+            dataSource: ds.cloneWithRows(this._genRows({})),
         };
-        getData(this);
-    }
-    render() {
+    },
+
+    _pressData: ({}: {
+        [key: number]: boolean }),
+
+    componentWillMount: function() {
+        this._pressData = {};
+    },
+
+    render: function() {
         return (
-            <View style={{flex: 1, paddingTop: 22}}>
+            <UIExplorerPage
+        noSpacer={true}
+        noScroll={true}>
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={(rowData) => <Text>{rowData}</Text>}
+          renderRow={this._renderRow}
+          renderScrollComponent={props => <RecyclerViewBackedScrollView {...props} />}
+          renderSeparator={this._renderSeparator}
         />
-      </View>
+      </UIExplorerPage>
+        );
+    },
+
+    _renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
+        var rowHash = Math.abs(hashCode(rowData));
+        var imgSource = THUMB_URLS[0];
+        return ( < TouchableHighlight onPress = {
+                () => {
+                    this._pressRow(rowID);
+                    highlightRow(sectionID, rowID);
+                }
+            } >
+            <View>
+          <View style={styles.row}>
+          <Navigator
+	        initialRoute={{ title: 'Awesome Scene', index: 0 }}
+	        renderScene={(route, navigator) =>
+	          <Text>Hello {route.title}!</Text>
+	        }
+	        style={{padding: 100}}
+      	  >
+            <Image style={styles.thumb} source={imgSource} />
+            <Text style={styles.text}>
+              {rowData + ' - ' + LOREM_IPSUM.substr(0, rowHash % 301 + 10)}
+            </Text>
+            </Navigator>
+          </View>
+        </View> < /TouchableHighlight>
+        );
+    },
+
+    _genRows: function(pressData: {
+        [key: number]: boolean }): Array < string > {
+        var dataBlob = [];
+        for (var ii = 0; ii < 100; ii++) {
+            var pressedText = pressData[ii] ? ' (pressed)' : '';
+            dataBlob.push('Row ' + ii + pressedText);
+        }
+        return dataBlob;
+    },
+
+    _pressRow: function(rowID: number) {
+        this._pressData[rowID] = !this._pressData[rowID];
+        this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(
+                this._genRows(this._pressData)
+            )
+        });
+    },
+
+    _renderSeparator: function(sectionID: number, rowID: number, adjacentRowHighlighted: bool) {
+        return ( < View key = { `${sectionID}-${rowID}` }
+            style = {
+                {
+                    height: adjacentRowHighlighted ? 4 : 1,
+                    backgroundColor: adjacentRowHighlighted ? '#3B5998' : '#CCCCCC',
+                }
+            }
+            />
         );
     }
-}
+});
+
+var THUMB_URLS = [
+    require('./images/finra.png'),
+];
+var LOREM_IPSUM = 'Lorem ipsum dolor sit amet, ius ad pertinax oportere accommodare, an vix civibus corrumpit referrentur. Te nam case ludus inciderint, te mea facilisi adipiscing. Sea id integre luptatum. In tota sale consequuntur nec. Erat ocurreret mei ei. Eu paulo sapientem vulputate est, vel an accusam intellegam interesset. Nam eu stet pericula reprimique, ea vim illud modus, putant invidunt reprehendunt ne qui.';
+
+/* eslint no-bitwise: 0 */
+var hashCode = function(str) {
+    var hash = 15;
+    for (var ii = str.length - 1; ii >= 0; ii--) {
+        hash = ((hash << 5) - hash) + str.charCodeAt(ii);
+    }
+    return hash;
+};
 
 const AleoText = aleofy(Text);
 const BoldAleoText = aleofy(Text, 'Bold');
@@ -99,32 +189,27 @@ async function getJSON(url, callback) {
     }
 }
 
-function getData(param) {
+function getData(param, callback) {
     var dataBlob = [];
     parseJSON(function(returnValue) {
         responseJson = returnValue;
         for (var i = 0; i < responseJson.prize.companies.length; i++) {
             var company = responseJson.prize.companies[i].name;
-            //console.log("Company Name: " + company);
             var challenge = responseJson.prize.companies[i].challenge;
-            //console.log(company + "'s challenge: " + challenge);
             var imageURL = responseJson.prize.companies[i].image;
-            //console.log("URL: " + imageURL);
-            //console.log("Prizes:");
             for (var j = 0; j < responseJson.prize.companies[i].prizes.length; j++) {
                 var prize = responseJson.prize.companies[i].prizes[j];
-                //console.log(prize);
             }
         }
 
         for (var i = 0; i < responseJson.prize.companies.length; i++) {
             dataBlob.push(responseJson.prize.companies[i].name);
-            console.log(dataBlob[i]);
         }
         param.setState({
-            dataSource: param.state.dataSource.cloneWithRows(dataBlob)
+            dataSource: param.state.dataSource.cloneWithRows(returnValue)
         })
-        return dataBlob;
+        callback(returnValue, param);
+        return returnValue;
     });
 }
 
@@ -159,7 +244,20 @@ const styles = StyleSheet.create({
     },
     sponsors: {
         alignItems: 'center'
-    }
+    },
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        padding: 10,
+        backgroundColor: '#F6F6F6',
+    },
+    thumb: {
+        width: 64,
+        height: 64,
+    },
+    text: {
+        flex: 1,
+    },
 });
 
 export default CompanyInfoScene;
