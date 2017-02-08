@@ -48,6 +48,7 @@ var List = React.createClass({
     render: function() {
         return (
             <UIExplorerPage
+        title={this.props.navigator ? null : '<ListView>'}
         noSpacer={true}
         noScroll={true}>
         <ListView
@@ -63,29 +64,21 @@ var List = React.createClass({
     _renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
         var rowHash = Math.abs(hashCode(rowData));
         var imgSource = THUMB_URLS[0];
-        return ( < TouchableHighlight onPress = {
-                () => {
-                    this._pressRow(rowID);
-                    highlightRow(sectionID, rowID);
-                }
-            } >
-            <View>
+        return (
+      <TouchableHighlight onPress={() => {
+          this._pressRow(rowID);
+          highlightRow(sectionID, rowID);
+        }}>
+        <View>
           <View style={styles.row}>
-          <Navigator
-	        initialRoute={{ title: 'Awesome Scene', index: 0 }}
-	        renderScene={(route, navigator) =>
-	          <Text>Hello {route.title}!</Text>
-	        }
-	        style={{padding: 100}}
-      	  >
             <Image style={styles.thumb} source={imgSource} />
             <Text style={styles.text}>
               {rowData + ' - ' + LOREM_IPSUM.substr(0, rowHash % 301 + 10)}
             </Text>
-            </Navigator>
           </View>
-        </View> < /TouchableHighlight>
-        );
+        </View>
+      </TouchableHighlight>
+    );
     },
 
     _genRows: function(pressData: {
