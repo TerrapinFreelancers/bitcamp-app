@@ -29,9 +29,8 @@ var List = React.createClass({
         getData(this, function(returnValue, param) {
             ds._dataBlob = returnValue;
             param.setState({
-                dataSource: param.state.dataSource.cloneWithRows(returnValue)
+                dataSource: param.state.dataSource.cloneWithRows(returnValue.prize.companies)
             })
-            console.log(ds);
         });
         return {
             dataSource: ds.cloneWithRows(this._genRows({})),
@@ -54,7 +53,6 @@ var List = React.createClass({
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this._renderRow}
-          renderScrollComponent={props => <RecyclerViewBackedScrollView {...props} />}
           renderSeparator={this._renderSeparator}
         />
       </UIExplorerPage>
@@ -62,6 +60,22 @@ var List = React.createClass({
     },
 
     _renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
+        var param = this;
+        var imgSource = THUMB_URLS[rowID];
+        var url = rowData.image;
+        var storageRef = firebase.storage().ref();
+        // Points to 'images'
+        var imagesRef = storageRef.child('/');
+        // Points to 'images/space.jpg'
+        // Note that you can use variables to create child values
+        var fileName = url;
+        if(fileName != undefined){
+            var ref = imagesRef.child(fileName);
+                ref.getDownloadURL().then(function(url) {
+                    console.log(url);
+                    THUMB_URLS[rowID] = url;
+            });
+        }
         var rowHash = Math.abs(hashCode(rowData));
         var imgSource = THUMB_URLS[0];
         return (
@@ -71,33 +85,31 @@ var List = React.createClass({
         }}>
         <View>
           <View style={styles.row}>
+            <Image style={styles.thumb} source={{uri:imgSource}} />
+            <Text style={styles.text}>
+              {rowData.name}
+            </Text>
             <Image style={styles.thumb} source={imgSource} />
             <Text style={styles.text}>
-              {rowData + ' - ' + LOREM_IPSUM.substr(0, rowHash % 301 + 10)}
+              {rowData.challenge}
             </Text>
           </View>
         </View>
       </TouchableHighlight>
     );
+  },
+
     },
 
     _genRows: function(pressData: {
         [key: number]: boolean }): Array < string > {
-        var dataBlob = [];
-        for (var ii = 0; ii < 100; ii++) {
-            var pressedText = pressData[ii] ? ' (pressed)' : '';
-            dataBlob.push('Row ' + ii + pressedText);
-        }
+        var dataBlob = ['name':'Loading Data'];
         return dataBlob;
     },
 
     _pressRow: function(rowID: number) {
         this._pressData[rowID] = !this._pressData[rowID];
-        this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(
-                this._genRows(this._pressData)
-            )
-        });
+        this.forceUpdate();
     },
 
     _renderSeparator: function(sectionID: number, rowID: number, adjacentRowHighlighted: bool) {
@@ -114,7 +126,7 @@ var List = React.createClass({
 });
 
 var THUMB_URLS = [
-    require('./images/finra.png'),
+    './images/finra.png',
 ];
 var LOREM_IPSUM = 'Lorem ipsum dolor sit amet, ius ad pertinax oportere accommodare, an vix civibus corrumpit referrentur. Te nam case ludus inciderint, te mea facilisi adipiscing. Sea id integre luptatum. In tota sale consequuntur nec. Erat ocurreret mei ei. Eu paulo sapientem vulputate est, vel an accusam intellegam interesset. Nam eu stet pericula reprimique, ea vim illud modus, putant invidunt reprehendunt ne qui.';
 
@@ -198,9 +210,6 @@ function getData(param, callback) {
         for (var i = 0; i < responseJson.prize.companies.length; i++) {
             dataBlob.push(responseJson.prize.companies[i].name);
         }
-        param.setState({
-            dataSource: param.state.dataSource.cloneWithRows(returnValue)
-        })
         callback(returnValue, param);
         return returnValue;
     });
