@@ -47,7 +47,6 @@ var List = React.createClass({
     render: function() {
         return (
             <UIExplorerPage
-        title={this.props.navigator ? null : '<ListView>'}
         noSpacer={true}
         noScroll={true}>
         <ListView
@@ -62,22 +61,6 @@ var List = React.createClass({
     _renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
         var param = this;
         var imgSource = THUMB_URLS[rowID];
-        var url = rowData.image;
-        var storageRef = firebase.storage().ref();
-        // Points to 'images'
-        var imagesRef = storageRef.child('/');
-        // Points to 'images/space.jpg'
-        // Note that you can use variables to create child values
-        var fileName = url;
-        if(fileName != undefined){
-            var ref = imagesRef.child(fileName);
-                ref.getDownloadURL().then(function(url) {
-                    console.log(url);
-                    THUMB_URLS[rowID] = url;
-            });
-        }
-        var rowHash = Math.abs(hashCode(rowData));
-        var imgSource = THUMB_URLS[0];
         return (
       <TouchableHighlight onPress={() => {
           this._pressRow(rowID);
@@ -98,8 +81,6 @@ var List = React.createClass({
       </TouchableHighlight>
     );
   },
-
-    },
 
     _genRows: function(pressData: {
         [key: number]: boolean }): Array < string > {
@@ -126,7 +107,6 @@ var List = React.createClass({
 });
 
 var THUMB_URLS = [
-    './images/finra.png',
 ];
 var LOREM_IPSUM = 'Lorem ipsum dolor sit amet, ius ad pertinax oportere accommodare, an vix civibus corrumpit referrentur. Te nam case ludus inciderint, te mea facilisi adipiscing. Sea id integre luptatum. In tota sale consequuntur nec. Erat ocurreret mei ei. Eu paulo sapientem vulputate est, vel an accusam intellegam interesset. Nam eu stet pericula reprimique, ea vim illud modus, putant invidunt reprehendunt ne qui.';
 
@@ -184,10 +164,38 @@ function parseJSON(callback) {
     });
 }
 
+function getRealImageURL(fileName){
+    return new Promise((resolve, reject) => {
+        var storageRef = firebase.storage().ref();
+        // Points to 'images'
+        var imagesRef = storageRef.child('/');
+        var ref = imagesRef.child(fileName);
+        ref.getDownloadURL().then(function(url) {
+            //add some type of error handling for reject
+            console.log(url);
+            resolve(url);
+        });
+
+    });
+
+}
+
+
 async function getJSON(url, callback) {
     try {
         let response = await fetch(url);
         let responseJson = await response.json();
+        var companies = responseJson.prize.companies;
+        var promises = []
+        for(var i = 0; i < companies.length; i++){
+            var image = companies[i].image;
+            promises.push(getRealImageURL(image));
+        }
+
+        var realURLS = await Promise.all(promises);
+        THUMB_URLS = realURLS;
+        console.log("REALURL" + realURLS);
+
         callback(responseJson);
     } catch (error) {
         console.error(error);
@@ -198,18 +206,6 @@ function getData(param, callback) {
     var dataBlob = [];
     parseJSON(function(returnValue) {
         responseJson = returnValue;
-        for (var i = 0; i < responseJson.prize.companies.length; i++) {
-            var company = responseJson.prize.companies[i].name;
-            var challenge = responseJson.prize.companies[i].challenge;
-            var imageURL = responseJson.prize.companies[i].image;
-            for (var j = 0; j < responseJson.prize.companies[i].prizes.length; j++) {
-                var prize = responseJson.prize.companies[i].prizes[j];
-            }
-        }
-
-        for (var i = 0; i < responseJson.prize.companies.length; i++) {
-            dataBlob.push(responseJson.prize.companies[i].name);
-        }
         callback(returnValue, param);
         return returnValue;
     });
