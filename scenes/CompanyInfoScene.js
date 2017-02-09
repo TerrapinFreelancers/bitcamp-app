@@ -22,6 +22,8 @@ import {
 import aleofy from '../shared/aleo';
 
 var UIExplorerPage = require('./dependencies/UIExplorerPage');
+var THUMB_URLS = [
+];
 
 var List = React.createClass({
     getInitialState: function() {
@@ -72,7 +74,6 @@ var List = React.createClass({
             <Text style={styles.text}>
               {rowData.name}
             </Text>
-            <Image style={styles.thumb} source={imgSource} />
             <Text style={styles.text}>
               {rowData.challenge}
             </Text>
@@ -105,10 +106,6 @@ var List = React.createClass({
         );
     }
 });
-
-var THUMB_URLS = [
-];
-var LOREM_IPSUM = 'Lorem ipsum dolor sit amet, ius ad pertinax oportere accommodare, an vix civibus corrumpit referrentur. Te nam case ludus inciderint, te mea facilisi adipiscing. Sea id integre luptatum. In tota sale consequuntur nec. Erat ocurreret mei ei. Eu paulo sapientem vulputate est, vel an accusam intellegam interesset. Nam eu stet pericula reprimique, ea vim illud modus, putant invidunt reprehendunt ne qui.';
 
 /* eslint no-bitwise: 0 */
 var hashCode = function(str) {
@@ -167,12 +164,9 @@ function parseJSON(callback) {
 function getRealImageURL(fileName){
     return new Promise((resolve, reject) => {
         var storageRef = firebase.storage().ref();
-        // Points to 'images'
         var imagesRef = storageRef.child('/');
         var ref = imagesRef.child(fileName);
         ref.getDownloadURL().then(function(url) {
-            //add some type of error handling for reject
-            console.log(url);
             resolve(url);
         });
 
@@ -191,11 +185,8 @@ async function getJSON(url, callback) {
             var image = companies[i].image;
             promises.push(getRealImageURL(image));
         }
-
         var realURLS = await Promise.all(promises);
         THUMB_URLS = realURLS;
-        console.log("REALURL" + realURLS);
-
         callback(responseJson);
     } catch (error) {
         console.error(error);
@@ -216,8 +207,6 @@ const styles = StyleSheet.create({
     scene: {
         flex: 1
     },
-
-    // text sizes
     bigTitle: {
         fontSize: 40,
     },
@@ -226,7 +215,8 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     text: {
-        fontSize: 15
+        fontSize: 20,
+        flex: 2
     },
 
     // sections of the page
@@ -252,9 +242,6 @@ const styles = StyleSheet.create({
     thumb: {
         width: 64,
         height: 64,
-    },
-    text: {
-        flex: 1,
     },
 });
 
