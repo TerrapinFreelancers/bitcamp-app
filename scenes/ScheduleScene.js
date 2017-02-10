@@ -10,9 +10,9 @@ class AccordionMenu extends Component {
         dataSource: ds.cloneWithRows(this._genRows({})),
     };
   }
- 
+
   render() {
-    console.log(this.state.dataSource);
+    // console.log(this.state.dataSource);
     return (
       <ListView
         dataSource={this.state.dataSource}
@@ -20,7 +20,7 @@ class AccordionMenu extends Component {
       />
     );
   }
- 
+
   _renderRow(rowData) {
 
     var header = (
@@ -52,7 +52,7 @@ class AccordionMenu extends Component {
       />
     );
     }
-      
+
     content = (
         <View style={{
           backgroundColor: '#eeeeee'
@@ -78,9 +78,9 @@ class AccordionMenu extends Component {
     var dataBlob = [];
 
     //array to modify in firebase [event time, event name, event description, event company, event location]
-    var scheduleInfo = 
+    var scheduleInfo =
     [["DATEHEADER", "April xxth"],
-    ["00:00 AM", "Intro", "introducing blah blah", "FINRA", "hi"], 
+    ["00:00 AM", "Intro", "introducing blah blah", "FINRA", "hi"],
     ["00:00 PM", "Next One", "no one cares blah", "Google", "hello"],
     ["DATEHEADER", "April xxth"],
     ["00:00 PM", "Last", "generic content lol", "MITRE", "sohai"]];
@@ -92,11 +92,11 @@ class AccordionMenu extends Component {
 
     return dataBlob;
   }
-  
+
 }
 
 export default class ScheduleScene extends Component {
-  
+
   static get defaultProps() {
     return {
       title: 'Schedule'

@@ -12,7 +12,6 @@ import {
     ScrollView,
     ListView,
     TouchableHighlight,
-    RecyclerViewBackedScrollView,
     Navigator
 } from 'react-native';
 import * as firebase from 'firebase';
@@ -28,9 +27,9 @@ var List = React.createClass({
         var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         getData(this, function(returnValue, param) {
             ds._dataBlob = returnValue;
-            param.setState({
-                dataSource: param.state.dataSource.cloneWithRows(returnValue)
-            })
+            // param.setState({
+            //     dataSource: param.state.dataSource.cloneWithRows(returnValue)
+            // })
             console.log(ds);
         });
         return {
@@ -54,30 +53,30 @@ var List = React.createClass({
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this._renderRow}
-          renderScrollComponent={props => <RecyclerViewBackedScrollView {...props} />}
           renderSeparator={this._renderSeparator}
         />
       </UIExplorerPage>
         );
     },
 
+
     _renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
         var rowHash = Math.abs(hashCode(rowData));
         var imgSource = THUMB_URLS[0];
         return (
-      <TouchableHighlight onPress={() => {
-          this._pressRow(rowID);
-          highlightRow(sectionID, rowID);
-        }}>
-        <View>
-          <View style={styles.row}>
-            <Image style={styles.thumb} source={imgSource} />
-            <Text style={styles.text}>
-              {rowData + ' - ' + LOREM_IPSUM.substr(0, rowHash % 301 + 10)}
-            </Text>
-          </View>
-        </View>
-      </TouchableHighlight>
+          <TouchableHighlight onPress={() => {
+              this._pressRow(rowID);
+              highlightRow(sectionID, rowID);
+            }}>
+            <View>
+              <View style={styles.row}>
+                <Image style={styles.thumb} source={imgSource} />
+                <Text style={styles.text}>
+                  {rowData + ' - ' + LOREM_IPSUM.substr(0, rowHash % 301 + 10)}
+                </Text>
+              </View>
+            </View>
+          </TouchableHighlight>
     );
     },
 
@@ -158,7 +157,7 @@ function CompanyInfoScene() {
         </View>
         <List/>
 
-      </ScrollView> 
+      </ScrollView>
     </View>
     );
 }
@@ -198,9 +197,9 @@ function getData(param, callback) {
         for (var i = 0; i < responseJson.prize.companies.length; i++) {
             dataBlob.push(responseJson.prize.companies[i].name);
         }
-        param.setState({
-            dataSource: param.state.dataSource.cloneWithRows(returnValue)
-        })
+        // param.setState({
+        //     dataSource: param.state.dataSource.cloneWithRows(returnValue)
+        // });
         callback(returnValue, param);
         return returnValue;
     });
