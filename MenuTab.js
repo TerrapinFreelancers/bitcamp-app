@@ -29,6 +29,19 @@ export default class MenuTab extends Component {
       introIcon = "md-home";
       mentorsIcon = "md-help-circle";
       companyInfoIcon = "md-trophy";
+      return (
+        <ScrollableTabView
+          tabBarPosition={menuTabPosition}
+          initialPage={0}
+          renderTabBar={() => <CustomTabBarOverlay />}
+        >
+          <IntroScene tabLabel={introIcon}/>
+          <ScheduleScene tabLabel={scheduleIcon} />
+          <MapScene tabLabel={mapIcon} />
+          <CompanyInfoScene tabLabel={companyInfoIcon} />
+          <MentorsScene tabLabel={mentorsIcon} />
+        </ScrollableTabView>
+      )
     }
 
     else {
@@ -38,21 +51,20 @@ export default class MenuTab extends Component {
       introIcon = "ios-home"
       mentorsIcon = "ios-help-circle";
       companyInfoIcon = "ios-trophy";
+      return (
+        <ScrollableTabView
+          tabBarPosition={menuTabPosition}
+          style={{marginTop: 20}}
+          initialPage={0}
+          renderTabBar={() => <CustomTabBarOverlay />}
+        >
+          <IntroScene tabLabel={introIcon}/>
+          <ScheduleScene tabLabel={scheduleIcon} />
+          <MapScene tabLabel={mapIcon} />
+          <CompanyInfoScene tabLabel={companyInfoIcon} />
+          <MentorsScene tabLabel={mentorsIcon} />
+        </ScrollableTabView>
+      )
     }
-
-    return (
-      <ScrollableTabView
-        tabBarPosition={menuTabPosition}
-        style={{marginTop: 20}}
-        initialPage={0}
-        renderTabBar={() => <CustomTabBarOverlay />}
-      >
-        <IntroScene tabLabel={introIcon}/>
-        <ScheduleScene tabLabel={scheduleIcon} />
-        <MapScene tabLabel={mapIcon} />
-        <CompanyInfoScene tabLabel={companyInfoIcon} />
-        <MentorsScene tabLabel={mentorsIcon} />
-      </ScrollableTabView>
-    )
   }
 }

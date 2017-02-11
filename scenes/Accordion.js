@@ -4,7 +4,6 @@
 
 import React, { Component, PropTypes } from 'react';
 import tweenState from 'react-tween-state';
-
 import {
   StyleSheet,
   TouchableHighlight,
@@ -64,7 +63,7 @@ var Accordion = React.createClass({
     content: React.PropTypes.element.isRequired,
     easing: React.PropTypes.string,
     expanded: React.PropTypes.bool,
-    header: React.PropTypes.element.isRequired,
+    header: React.PropTypes.element,
     onPress: React.PropTypes.func,
     underlayColor: React.PropTypes.string,
     style: React.PropTypes.object
@@ -134,14 +133,26 @@ var Accordion = React.createClass({
   },
 
   render() {
-    if ((typeof this.props.time) != "undefined"){
-      var header = (<HeaderComponent
+    let header;
+    if (this.props.type === "EVENT"){
+      header = (<TouchableHighlight
+                  onPress={this._onPress}
+                  underlayColor={this.props.underlayColor}
+                  style={this.props.style}
+                  >
+                  <HeaderComponent
                     on={this.state.is_visible}
                     time={this.props.time}
                     title={this.props.title}
-                    />);
+                    />
+                </TouchableHighlight>);
     }else{
-      header = this.props.header;
+      header = (<View
+                  underlayColor={this.props.underlayColor}
+                  style={this.props.style}
+                  >
+                  {this.props.header}
+                </View>);
     }
 
     return (
@@ -151,14 +162,7 @@ var Accordion = React.createClass({
           overflow: 'hidden'
         }}
       >
-        <TouchableHighlight
-          ref="AccordionHeader"
-          onPress={this._onPress}
-          underlayColor={this.props.underlayColor}
-          style={this.props.style}
-        >
-          {header}
-        </TouchableHighlight>
+        {header}
         <View
           ref="AccordionContentWrapper"
           style={{

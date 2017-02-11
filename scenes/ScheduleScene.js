@@ -69,61 +69,60 @@ class AccordionMenu extends Component {
 
   _renderRow(rowData) {
 
-    var content = <View></View>;
-
+    let content = <View></View>;
+    let header;
     //if the header is just a DATE STAMP, then create a new kind of date header
-    if(rowData[0] == "DATEHEADER"){
+    if(rowData.type == "DATEHEADER"){
       header = (
         <View style={styles.date_header}>
-          <BoldAleoText style={{color: '#ffffff'}}>{rowData[1]}</BoldAleoText>
+          <BoldAleoText style={{color: '#ffffff'}}>{rowData.date}</BoldAleoText>
         </View>
       );
 
       return (
-      <Accordion
-        header={header}
-        content={content}
-        activeOpacity={0}
-        underlayColor={'#ffaf3f'}
-        easing="easeOutCubic"
-      />
-    );
+        <Accordion
+          type={rowData.type}
+          header={header}
+          content={content}
+          activeOpacity={0}
+          underlayColor={'#ffaf3f'}
+          easing="easeOutCubic"
+        />
+      );
     }
+    else{
 
-    content = (
-        <View style={{
-          backgroundColor: '#ffffff'
-        }}>
-          <Text style={styles.content}>{rowData[2]}</Text>
-          <Text style={styles.content}>Company: {rowData[3]}</Text>
-          <Text style={styles.content}>Location: {rowData[4]}</Text>
-        </View>
-    );
+      content = (
+          <View style={{
+            backgroundColor: '#ffffff'
+          }}>
+            <Text style={styles.content}>{rowData.description}</Text>
+            <Text style={styles.content}>Company: {rowData.company}</Text>
+            <Text style={styles.content}>Location: {rowData.location}</Text>
+          </View>
+      );
 
-    // console.log('returning', toRet);
-    return (
-      <Accordion
-        time={rowData[0]}
-        title={rowData[1]}
-        header={header}
-        content={content}
-        easing="easeOutCubic"
-      />
-    );
+      // console.log('returning', toRet);
+      return (
+          <Accordion
+            type={rowData.type}
+            time={rowData.time}
+            title={rowData.name}
+            content={content}
+            easing="easeOutCubic"
+          />
+        );
+    }
   }
 
   _genRows() {
     //these are the data needed for schedule information.
     var dataBlob = [];
 
-    // array to modify in firebase [event time, event name, event description, event company, event location]
+    // array of json objects to modify in firebase
     // format is as follows:
-    // [["DATEHEADER", "April xxth"],
-    // ["00:00 AM", "Intro", "introducing blah blah", "FINRA", "hi"],
-    // ["00:00 PM", "Next One", "no one cares blah", "Google", "hello"],
-    // ["DATEHEADER", "April xxth"],
-    // ["00:00 PM", "Last", "generic content lol", "MITRE", "sohai"]];
-
+    // dateheader object has props type, date
+    // event object has props type, time, name, location, description, company
 
     return dataBlob;
   }
