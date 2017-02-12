@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 
-import { AppRegistry, View, Text, ListView, StyleSheet } from 'react-native';
+import {AppRegistry,
+        View,
+        Text,
+        ListView,
+        StyleSheet,
+        AsyncStorage} from 'react-native';
 import Accordion from './Accordion'
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -16,11 +21,11 @@ const firebaseConfig = {
   storageBucket: ""
 };
 const firebaseApp = firebase.initializeApp(firebaseConfig);
-
 const AleoText = aleofy(Text);
 const BoldAleoText = aleofy(Text, 'Bold');
 const downIcon = (<Icon name="chevron-down"/>);
 const upIcon = (<Icon name="chevron-up"/>);
+const STORAGE_KEY = '@bitcampapp:schedule'; // the @ may need to be modified...
 
 class AccordionMenu extends Component {
 
@@ -28,10 +33,9 @@ class AccordionMenu extends Component {
     super(props);
     // const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-
     this.state = {
         //dataSource: ds,
-        dataSource: this.ds.cloneWithRows(this._genRows({})),
+        dataSource: this.ds.cloneWithRows([]),
     };
     this.itemsRef = this.getRef();
   }
@@ -43,17 +47,37 @@ class AccordionMenu extends Component {
       this.setState({
         dataSource: this.ds.cloneWithRows(jsonDataBlob.Schedule)
       });
+      AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(jsonDataBlob.Schedule), function(error){
+        if (error){
+          console.log("Error: " + error);
+        }
+      });
+    });
+  }
 
+  async fetchData(){
+    let savedData = [];
+    try{
+      savedData = await AsyncStorage.getItem(STORAGE_KEY);
+      savedData = JSON.parse(savedData);
+      if (savedData === null) savedData = [{type:"DATEHEADER", date:"Schedule coming soon!"}];
+    }catch(error){
+      console.log('Error grabbing item from storage');
+      console.log(error);
+      savedData = [{type:"DATEHEADER", date:"Schedule coming soon!"}];
+    }
+    this.setState({
+      dataSource: this.ds.cloneWithRows(savedData)
     });
   }
 
   componentDidMount() {
     console.log("in mounting function");
+    this.fetchData().done();
     this.listenForItems(this.itemsRef);
   }
 
   render() {
-
     return (
       <ListView
         dataSource={this.state.dataSource}
