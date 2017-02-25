@@ -5,7 +5,7 @@ import ScheduleScene from './scenes/ScheduleScene';
 import CompanyInfoScene from './scenes/CompanyInfoScene';
 import MapScene from './scenes/MapScene';
 import MentorsScene from './scenes/MentorsScene';
-import IntroScene from './scenes/IntroScene';
+import CountdownScene from './scenes/CountdownScene';
 
 //credit to/documentation at
 //https://github.com/skv-headless/react-native-scrollable-tab-view
@@ -17,7 +17,7 @@ export default class MenuTab extends Component {
 
   render() {
     let menuTabPosition;
-    let introIcon;
+    let countdownIcon;
     let scheduleIcon;
     let mapIcon;
     let companyInfoIcon;
@@ -26,7 +26,7 @@ export default class MenuTab extends Component {
       menuTabPosition = "top";
       scheduleIcon = "md-calendar";
       mapIcon = "md-map";
-      introIcon = "md-home";
+      countdownIcon = "md-home";
       mentorsIcon = "md-help-circle";
       companyInfoIcon = "md-trophy";
     }
@@ -35,7 +35,7 @@ export default class MenuTab extends Component {
       menuTabPosition = "bottom";
       scheduleIcon = "ios-calendar";
       mapIcon = "ios-map";
-      introIcon = "ios-home"
+      countdownIcon = "ios-home"
       mentorsIcon = "ios-help-circle";
       companyInfoIcon = "ios-trophy";
     }
@@ -47,7 +47,7 @@ export default class MenuTab extends Component {
         initialPage={1}
         renderTabBar={() => <CustomTabBarOverlay />}
       >
-        <IntroScene tabLabel={introIcon}/>
+        <CountdownScene tabLabel={countdownIcon}/>
         <ScheduleScene tabLabel={scheduleIcon} />
         <MapScene tabLabel={mapIcon} />
         <CompanyInfoScene tabLabel={companyInfoIcon} />
