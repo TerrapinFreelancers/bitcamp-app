@@ -16,24 +16,22 @@ import {
     Navigator,
     Button,
 } from 'react-native';
-import * as firebase from 'firebase';
+import firebaseApp from '../shared/firebase'
 import {
     colors
 } from '../shared/styles';
 import aleofy from '../shared/aleo';
-
-
 const AleoText = aleofy(Text);
 const BoldAleoText = aleofy(Text, 'Bold');
-// Initialize Firebase
+/*// Initialize Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyCy09lKL33_wEdgE-lCp0zZTz89GwSuuxo",
     authDomain: "test-bitcamp.firebaseapp.com",
     databaseURL: "https://test-bitcamp.firebaseio.com",
     storageBucket: "test-bitcamp.appspot.com"
 };
-const firebaseApp = firebase.initializeApp(firebaseConfig);
-
+firebase.initializeApp(firebaseConfig);
+*/
 const styles = StyleSheet.create({
     scene: {
         flex: 1
@@ -275,7 +273,7 @@ function CompanyInfoScene() {
 }
 
 function parseJSON(callback) {
-    var storageRef = firebase.storage().ref('prizes.json');
+    var storageRef = firebaseApp.storage().ref('prizes.json');
     storageRef.getDownloadURL().then(function(url) {
         getJSON(url, function(returnValue) {
             callback(returnValue);
@@ -285,7 +283,7 @@ function parseJSON(callback) {
 
 function getRealImageURL(fileName){
     return new Promise((resolve, reject) => {
-        var storageRef = firebase.storage().ref();
+        var storageRef = firebaseApp.storage().ref();
         var imagesRef = storageRef.child('/');
         var ref = imagesRef.child(fileName);
         ref.getDownloadURL().then(function(url) {

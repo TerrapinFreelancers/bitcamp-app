@@ -11,9 +11,9 @@ import Accordion from './Accordion'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors } from '../shared/styles';
 import aleofy from '../shared/aleo';
-import * as firebase from 'firebase';
+import firebaseApp from '../shared/firebase';
 
-// Initialize Firebase
+/*// Initialize Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyCDA47vn27sRJVu575IcduceK7ahZsWrJA",
   authDomain: "bitcamp-app.firebaseapp.com",
@@ -21,6 +21,7 @@ const firebaseConfig = {
   storageBucket: ""
 };
 const firebaseApp = firebase.initializeApp(firebaseConfig);
+*/
 const AleoText = aleofy(Text);
 const BoldAleoText = aleofy(Text, 'Bold');
 const downIcon = (<Icon name="chevron-down"/>);
@@ -35,6 +36,7 @@ class ScheduleScene extends Component {
     this.state = {
       dataSource: this.ds.cloneWithRows([]),
     };
+    console.log(firebaseApp);
     this.itemsRef = firebaseApp.database().ref();
   }
 
