@@ -29,7 +29,7 @@ class CustomTabBarOverlay extends Component {
             name={tab}
             size={30}
             color={this.props.activeTab === i ?
-              colors.bitcampOrange : 'rgb(204,204,204)'}
+              colors.cloudWhite : colors.lightBrown}
           />
         </TouchableOpacity>;
       })}
@@ -48,19 +48,21 @@ const styles = StyleSheet.create({
   tabUnderlineStyle: {
     position: 'absolute',
     height: 4,
-    backgroundColor: colors.bitcampOrange,
+    backgroundColor: colors.cloudWhite,
     bottom: 0,
   },
   tab: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: 10
+    paddingBottom: 10,
+
   },
   tabs: {
     height: 45,
     flexDirection: 'row',
-    paddingTop: 5,
+    backgroundColor: colors.darkBrown,
+    paddingTop: 8,
     borderWidth: 1,
     borderTopWidth: 0,
     borderLeftWidth: 0,
