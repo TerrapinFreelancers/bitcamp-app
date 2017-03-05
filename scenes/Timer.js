@@ -48,12 +48,12 @@ class Timer extends Component {
     var message;
     if (time > eventTime) {
       eventTime = new Date(2017, 3, 9, 10, 0, 0, 0);
-      message = 'hacking ends!';
+      message = 'Time until hacking ends!';
       if (time > eventTime) {
-        return [0, 0, 0, 0, 'hacking is over!'];
+        return [0, 0, 0, 0, 'Hacking is over!'];
       }
     } else {
-      message = 'until hacking begins!';
+      message = 'Time until hacking begins!';
     }
     var remain = eventTime.getTime() - time.getTime();
     var numDays = Math.floor((remain / 86400000));
@@ -65,22 +65,39 @@ class Timer extends Component {
 
   render() {
     return (
-        <View style={styles.scene}>
-          <Image
-            source={require('./images/flame.gif')} 
-            style={styles.fire}
-          />
-          <Image
-            source={require('./images/logs.png')} 
-            style={styles.logs}
-          />
-          <BoldAleoText style={styles.title}>
-            {this.state.days} days, {this.state.hours} hours, {this.state.minutes} minutes and {this.state.seconds} seconds...
-          </BoldAleoText>
-          <BoldAleoText style={styles.bigTitle}>
+      <View style={styles.scene}>
+       <Image
+          source={require('./images/flame3.gif')} 
+          style={styles.fire}
+        />
+        <Image
+          source={require('./images/logs.png')} 
+          style={styles.logs}
+        />
+        <View style={{ marginTop: 20, marginBottom: 20,}}>
+          <BoldAleoText style={styles.message}>
             {this.state.displayMessage}
           </BoldAleoText>
         </View>
+        <View style={styles.row}>
+          <View style={styles.col}>
+            <BoldAleoText style={styles.bigTitle}>{this.state.days}</BoldAleoText>
+            <BoldAleoText style={styles.title}>D</BoldAleoText>
+          </View>
+          <View style={styles.col}>
+            <BoldAleoText style={styles.bigTitle}>{this.state.hours}</BoldAleoText>
+            <BoldAleoText style={styles.title}>H</BoldAleoText>
+          </View>
+          <View style={styles.col}>
+            <BoldAleoText style={styles.bigTitle}>{this.state.minutes}</BoldAleoText>
+            <BoldAleoText style={styles.title}>M</BoldAleoText>
+          </View>
+          <View style={styles.col}>
+            <BoldAleoText style={styles.bigTitle}>{this.state.seconds}</BoldAleoText>
+            <BoldAleoText style={styles.title}>S</BoldAleoText>
+          </View>
+        </View>
+      </View>
     );
   }
 
@@ -92,7 +109,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   fire: {
-    marginTop: 100,
+    marginTop: 80,
     width: 100,
     height: 100,
     alignItems: 'center',
@@ -100,7 +117,7 @@ const styles = StyleSheet.create({
   logs: {
     width: 114,
     height: 50,
-    marginBottom: 10,
+    marginBottom: 20,
     alignItems: 'center',
   },
 
@@ -108,31 +125,41 @@ const styles = StyleSheet.create({
   bigTitle: {
     fontSize: 40,
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 10,
+    color: colors.cloudWhite,
+    textShadowColor: '#000000',
+    textShadowOffset: {width: 0.1, height: 0.1},
+    textShadowRadius: 2,
   },
   title: {
-    fontSize: 20,
-    marginBottom: 20,
+    fontSize: 15,
+    marginBottom: 10,
     textAlign: 'center',
+    color: colors.cloudWhite,
+    textShadowColor: '#000000',
+    textShadowOffset: {width: 0.1, height: 0.1},
+    textShadowRadius: 2,
+  },
+  message: {
+    fontSize: 20,
+    marginBottom: 10,
+    textAlign: 'center',
+    color: colors.cloudWhite,
+    textShadowColor: '#000000',
+    textShadowOffset: {width: 0.1, height: 0.1},
+    textShadowRadius: 2,
   },
   text: {
     fontSize: 15,
   },
-
-  // sections of the page
-  blueSky: {
-    alignItems: 'center',
-    backgroundColor: colors.skyBlue,
-    padding: 30,
+  col: {
+    flex: 1,
+    flexDirection: 'column',
   },
-  welcome: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 40,
+  row: {
+    flex: 1,
+    flexDirection: 'row',
   },
-  sponsors: {
-    alignItems: 'center',
-  }
 });
 
 export default Timer;

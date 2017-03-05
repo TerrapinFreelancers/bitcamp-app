@@ -95,10 +95,10 @@ class CountdownScene extends Component {
     var time = time.getTime();
     var seconds = Math.floor((time % 86400000) / 1000);
     var hour = 3600;
-    if (seconds > 18000) {
-      seconds = seconds - 18000;
+    if (seconds > 5 * hour) {
+      seconds = seconds - 5 * hour;
     } else {
-      seconds = 864000 - 18000 + seconds;
+      seconds = 24 * hour - 5 * hour + seconds;
     }
     var opacity;
     switch(image) {
@@ -106,43 +106,59 @@ class CountdownScene extends Component {
         if (seconds < 8 * hour || seconds > 18 * hour) {
           opacity = 0;
         } else {
-          if (seconds > 11 * hour && seconds < 16 * hour) {
+          if (seconds > 10 * hour && seconds <= 16 * hour) {
             opacity = 1;
           } else {
-            opacity = Math.abs(21600 - seconds + 21600) / 21600;
+            if (seconds < 10 * hour) {
+              opacity = (seconds - 8 * hour) / (2 * hour);
+            } else {
+              opacity = (18 * hour - seconds) / (2 * hour);
+            }
           }
         }
         break;
       case 'dawn':
-        if (seconds > 11 * hour) {
+        if (seconds < 4 * hour || seconds > 10 * hour) {
           opacity = 0;
         } else {
-          if (seconds > 5 * hour && seconds < 8 * hour) {
+          if (seconds > 6 * hour && seconds <= 8 * hour) {
             opacity = 1;
           } else {
-            opacity = Math.abs(21600 - seconds) / 21600;
+            if (seconds < 6 * hour) {
+              opacity = (seconds - 4 * hour) / (2 * hour);
+            } else {
+              opacity = (10 * hour - seconds) / (2 * hour);
+            }
           }
         }
         break;
       case 'dusk':
-        if (seconds < 18 * hour) {
+        if (seconds < 16 * hour || seconds > 22 * hour) {
           opacity = 0;
         } else {
-          if (seconds > 17 * hour && seconds < 20 * hour) {
+          if (seconds > 18 * hour && seconds <= 20 * hour) {
             opacity = 1;
           } else {
-            opacity = Math.abs(21600 - seconds + 43200) / 21600;
+            if (seconds < 18 * hour) {
+              opacity = (seconds - 16 * hour) / (2 * hour);
+            } else {
+              opacity = (22 * hour - seconds) / (2 * hour);
+            }
           }
         }
         break;
       case 'night':
-        if (seconds > 4 * hour && seconds < 19 * hour) {
+        if (seconds > 6 * hour && seconds < 20 * hour) {
           opacity = 0;
         } else {
-          if (seconds > 21 * hour ||  seconds < 2 * hour) {
+          if (seconds > 22 * hour || seconds <= 4 * hour) {
             opacity = 1;
           } else {
-            opacity = Math.abs(21600 - seconds + 64800) / 21600;
+            if (seconds < 6 * hour) {
+              opacity = 1 - (seconds - 4 * hour) / (2 * hour);
+            } else {
+              opacity = 1 - ((22 * hour - seconds) / (2 * hour));
+            }
           }
         }
         break;
