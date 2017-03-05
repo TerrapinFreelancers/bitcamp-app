@@ -10,10 +10,13 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "license": "ISC",
-  "rnpm":{
-    "assets": ["node_modules/react-native-vector-icons/Fonts"]
+  "rnpm": {
+    "assets": [
+      "node_modules/react-native-vector-icons/Fonts"
+    ]
   },
   "dependencies": {
+    "firebase": "^3.6.5",
     "react": "15.3.1",
     "react-native": "0.32.0",
     "react-native-scrollable-tab-view": "^0.6.0",
