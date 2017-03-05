@@ -11,10 +11,16 @@ import {
   Text,
   View
 } from 'react-native';
+import Orientation from 'react-native-orientation';
 
 import MenuTab from './MenuTab';
 
 class BitcampApp extends Component {
+
+  componentDidMount() {
+    Orientation.lockToPortrait();
+  }
+
   render() {
     return (
       <MenuTab />
