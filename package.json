@@ -16,9 +16,9 @@
     ]
   },
   "dependencies": {
+    "firebase": "^3.6.5",
     "react": "15.3.1",
     "react-native": "0.32.0",
-    "react-native-accordion": "^1.0.1",
     "react-native-scrollable-tab-view": "^0.6.0",
     "react-native-vector-icons": "^2.1.0"
   }

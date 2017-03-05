@@ -13,46 +13,31 @@ import CountdownScene from './scenes/CountdownScene';
 import CustomTabBarOverlay from './CustomTabBarOverlay';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 
-export default class MenuTab extends Component {
+export default function MenuTab(props) {
 
-  render() {
-    let menuTabPosition;
-    let countdownIcon;
-    let scheduleIcon;
-    let mapIcon;
-    let companyInfoIcon;
-    let mentorsIcon;
-    if (Platform.OS === 'android') {
-      menuTabPosition = "top";
-      scheduleIcon = "md-calendar";
-      mapIcon = "md-map";
-      countdownIcon = "md-home";
-      mentorsIcon = "md-help-circle";
-      companyInfoIcon = "md-trophy";
-    }
+  // ios styles
+  let menuTabPosition = 'bottom';
+  let iconPrefix = 'ios';
+  let style = { marginTop: 20 };
 
-    else {
-      menuTabPosition = "bottom";
-      scheduleIcon = "ios-calendar";
-      mapIcon = "ios-map";
-      countdownIcon = "ios-home"
-      mentorsIcon = "ios-help-circle";
-      companyInfoIcon = "ios-trophy";
-    }
-
-    return (
-      <ScrollableTabView
-        tabBarPosition={menuTabPosition}
-        style={{marginTop: 20, }}
-        initialPage={1}
-        renderTabBar={() => <CustomTabBarOverlay />}
-      >
-        <CountdownScene tabLabel={countdownIcon}/>
-        <ScheduleScene tabLabel={scheduleIcon} />
-        <MapScene tabLabel={mapIcon} />
-        <CompanyInfoScene tabLabel={companyInfoIcon} />
-        <MentorsScene tabLabel={mentorsIcon} />
-      </ScrollableTabView>
-    )
+  if (Platform.OS === 'android') {
+    menuTabPosition = 'top';
+    iconPrefix = 'md';
+    style = {};
   }
+
+  return (
+    <ScrollableTabView
+      tabBarPosition={menuTabPosition}
+      style={style}
+      initialPage={0}
+      renderTabBar={() => <CustomTabBarOverlay />}
+    >
+      <CountdownScene   tabLabel={`${iconPrefix}-home`} />
+      <ScheduleScene    tabLabel={`${iconPrefix}-calendar`} />
+      <MapScene         tabLabel={`${iconPrefix}-map`} />
+      <CompanyInfoScene tabLabel={`${iconPrefix}-trophy`} />
+      <MentorsScene     tabLabel={`${iconPrefix}-help-circle`} />
+    </ScrollableTabView>
+  );
 }
