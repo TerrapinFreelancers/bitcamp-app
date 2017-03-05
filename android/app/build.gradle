@@ -132,6 +132,7 @@ dependencies {
     compile "com.facebook.react:react-native:+"  // From node_modules
     compile 'com.facebook.fresco:fresco:1.1.0'
     compile 'com.facebook.fresco:animated-gif:1.1.0'
+    compile project(':react-native-orientation')
 }
 
 // Run this once to be able to run the application with BUCK
