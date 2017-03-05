@@ -86,16 +86,19 @@ var List = React.createClass({
     getInitialState: function() {
         var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         var data = ds.cloneWithRows(['name':'Loading Data']);
-        this.setState({
+        state = {
             dataSource: data,
-        });
+            loaded: false,
+            pressed: false,
+            body: <Text>Loading</Text>,
+        };
         getData(this, function(returnValue, param) {
             ds._dataBlob = returnValue;
             param.setState({
                 loaded: true,
                 pressed: false,
                 dataSource: param.state.dataSource.cloneWithRows(returnValue.prize.companies),
-                body: <Text>Test</Text>,
+                body: <Text>Loading</Text>,
             })
         });
         return {
