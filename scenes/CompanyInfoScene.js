@@ -85,12 +85,17 @@ var THUMB_URLS = [
 var List = React.createClass({
     getInitialState: function() {
         var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+        var data = ds.cloneWithRows(['name':'Loading Data']);
+        this.setState({
+            dataSource: data,
+        });
         getData(this, function(returnValue, param) {
             ds._dataBlob = returnValue;
             param.setState({
-                bool: false,
+                loaded: true,
+                pressed: false,
                 dataSource: param.state.dataSource.cloneWithRows(returnValue.prize.companies),
-                foo: <Text>Test</Text>,
+                body: <Text>Test</Text>,
             })
         });
         return {
@@ -106,11 +111,11 @@ var List = React.createClass({
     },
 
     render: function() {
-        if(this.state.bool){
-            foo = this.state.foo;
+        if(this.state.pressed){
+            body = this.state.body;
         }
         else{
-            foo = <UIExplorerPage
+            body = <UIExplorerPage
                     noSpacer={true}
                     noScroll={true}>
 
@@ -122,31 +127,36 @@ var List = React.createClass({
                   </UIExplorerPage>;
         }
         return (
-            foo
+            body
         );
     },
 
     _renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
         var param = this;
         var imgSource = THUMB_URLS[rowID];
+        if(!this.state.loaded){
+            return(<Text>Loading Data...</Text>);
+        }
+        else{
         return (
-      <TouchableHighlight onPress={() => {
-        this._pressRow(rowData, rowID);
-          highlightRow(sectionID, rowID);
-        }}>
-        <View>
-          <View style={styles.row}>
-            <Image style={styles.thumb} source={{uri:imgSource}} />
-            <Text style={styles.text}>
-              {rowData.name}
-            </Text>
-            <Text style={styles.text}>
-              {rowData.challenge}
-            </Text>
-          </View>
-        </View>
-      </TouchableHighlight>
-    );
+              <TouchableHighlight onPress={() => {
+                this._pressRow(rowData, rowID);
+                  highlightRow(sectionID, rowID);
+                }}>
+                <View>
+                  <View style={styles.row}>
+                    <Image style={styles.thumb} source={{uri:imgSource}} />
+                    <Text style={styles.text}>
+                      {rowData.name}
+                    </Text>
+                    <Text style={styles.text}>
+                      {rowData.challenge}
+                    </Text>
+                  </View>
+                </View>
+              </TouchableHighlight>
+            );
+        }
   },
 
   _renderPrizes: function(rowData){
@@ -162,7 +172,7 @@ var List = React.createClass({
   },
 
    _revertPage: function(){
-     this.setState({foo: 
+     this.setState({body: 
         <UIExplorerPage
             noSpacer={true}
             noScroll={true}>
@@ -185,12 +195,12 @@ var List = React.createClass({
      _pressRow: function(rowData, rowID) {
         var imgSource = THUMB_URLS[rowID];
         this.setState({
-            bool: true
+            pressed: true
         });
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         var dataSource = ds.cloneWithRows(rowData.prizes);
         console.log(ds);
-        this.setState({foo: 
+        this.setState({body: 
            <View style={styles.scene}>
           <ScrollView>
             <View style={styles.blueSky}>
