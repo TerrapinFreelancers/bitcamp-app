@@ -13,13 +13,70 @@ import {
     ListView,
     TouchableHighlight,
     RecyclerViewBackedScrollView,
-    Navigator
+    Navigator,
+    Button,
 } from 'react-native';
 import * as firebase from 'firebase';
 import {
     colors
 } from '../shared/styles';
 import aleofy from '../shared/aleo';
+
+
+const AleoText = aleofy(Text);
+const BoldAleoText = aleofy(Text, 'Bold');
+// Initialize Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyCy09lKL33_wEdgE-lCp0zZTz89GwSuuxo",
+    authDomain: "test-bitcamp.firebaseapp.com",
+    databaseURL: "https://test-bitcamp.firebaseio.com",
+    storageBucket: "test-bitcamp.appspot.com"
+};
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+
+const styles = StyleSheet.create({
+    scene: {
+        flex: 1
+    },
+    bigTitle: {
+        fontSize: 40,
+    },
+    title: {
+        fontSize: 20,
+        marginBottom: 10
+    },
+    text: {
+        fontSize: 20,
+        flex: 2
+    },
+
+    // sections of the page
+    blueSky: {
+        alignItems: 'center',
+        backgroundColor: colors.skyBlue,
+        padding: 30
+    },
+    welcome: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 40
+    },
+    sponsors: {
+        alignItems: 'center'
+    },
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        padding: 10,
+        backgroundColor: '#F6F6F6',
+    },
+    thumb: {
+        width: 64,
+        height: 64,
+    },
+});
+
+
 
 var UIExplorerPage = require('./dependencies/UIExplorerPage');
 var THUMB_URLS = [
@@ -31,7 +88,9 @@ var List = React.createClass({
         getData(this, function(returnValue, param) {
             ds._dataBlob = returnValue;
             param.setState({
-                dataSource: param.state.dataSource.cloneWithRows(returnValue.prize.companies)
+                bool: false,
+                dataSource: param.state.dataSource.cloneWithRows(returnValue.prize.companies),
+                foo: <Text>Test</Text>,
             })
         });
         return {
@@ -47,16 +106,23 @@ var List = React.createClass({
     },
 
     render: function() {
+        if(this.state.bool){
+            foo = this.state.foo;
+        }
+        else{
+            foo = <UIExplorerPage
+                    noSpacer={true}
+                    noScroll={true}>
+
+                    <ListView
+                      dataSource={this.state.dataSource}
+                      renderRow={this._renderRow}
+                      renderSeparator={this._renderSeparator}
+                    />
+                  </UIExplorerPage>;
+        }
         return (
-            <UIExplorerPage
-        noSpacer={true}
-        noScroll={true}>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this._renderRow}
-          renderSeparator={this._renderSeparator}
-        />
-      </UIExplorerPage>
+            foo
         );
     },
 
@@ -65,7 +131,7 @@ var List = React.createClass({
         var imgSource = THUMB_URLS[rowID];
         return (
       <TouchableHighlight onPress={() => {
-          this._pressRow(rowID);
+        this._pressRow(rowData, rowID);
           highlightRow(sectionID, rowID);
         }}>
         <View>
@@ -83,16 +149,79 @@ var List = React.createClass({
     );
   },
 
+  _renderPrizes: function(rowData){
+    return(
+    <View>
+          <View style={styles.row}>
+            <Text style={styles.text}>
+              {rowData}
+            </Text>
+          </View>
+        </View>
+        );
+  },
+
+   _revertPage: function(){
+     this.setState({foo: 
+        <UIExplorerPage
+            noSpacer={true}
+            noScroll={true}>
+
+            <ListView
+              dataSource={this.state.dataSource}
+              renderRow={this._renderRow}
+              renderSeparator={this._renderSeparator}
+            />
+      </UIExplorerPage>
+      });
+  },
+
     _genRows: function(pressData: {
         [key: number]: boolean }): Array < string > {
         var dataBlob = ['name':'Loading Data'];
         return dataBlob;
     },
 
-    _pressRow: function(rowID: number) {
-        this._pressData[rowID] = !this._pressData[rowID];
-        this.forceUpdate();
-    },
+     _pressRow: function(rowData, rowID) {
+        var imgSource = THUMB_URLS[rowID];
+        this.setState({
+            bool: true
+        });
+        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+        var dataSource = ds.cloneWithRows(rowData.prizes);
+        console.log(ds);
+        this.setState({foo: 
+           <View style={styles.scene}>
+          <ScrollView>
+            <View style={styles.blueSky}>
+    <BoldAleoText style={styles.bigTitle}>{rowData.name}</BoldAleoText>
+            </View>
+                <View>
+                  <View style={styles.row}>
+                    <Text style={styles.text}>
+                      {rowData.challenge}
+                    </Text>
+                  </View>
+                  <ListView
+                      dataSource={dataSource}
+                      renderRow={this._renderPrizes}
+                      renderSeparator={this._renderSeparator}
+                    />
+                  <TouchableHighlight onPress={() => {
+                        this._revertPage();
+                    }}>
+                    <View style={styles.row}><Text>Back to Prizes</Text></View>
+                </TouchableHighlight>
+                </View>
+
+            </ScrollView>
+            </View>
+    });
+
+  },
+
+ 
+
 
     _renderSeparator: function(sectionID: number, rowID: number, adjacentRowHighlighted: bool) {
         return ( < View key = { `${sectionID}-${rowID}` }
@@ -106,26 +235,6 @@ var List = React.createClass({
         );
     }
 });
-
-/* eslint no-bitwise: 0 */
-var hashCode = function(str) {
-    var hash = 15;
-    for (var ii = str.length - 1; ii >= 0; ii--) {
-        hash = ((hash << 5) - hash) + str.charCodeAt(ii);
-    }
-    return hash;
-};
-
-const AleoText = aleofy(Text);
-const BoldAleoText = aleofy(Text, 'Bold');
-// Initialize Firebase
-const firebaseConfig = {
-    apiKey: "AIzaSyCy09lKL33_wEdgE-lCp0zZTz89GwSuuxo",
-    authDomain: "test-bitcamp.firebaseapp.com",
-    databaseURL: "https://test-bitcamp.firebaseio.com",
-    storageBucket: "test-bitcamp.appspot.com"
-};
-const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 // The intro page has the bitcamp logo and some nice text
 function CompanyInfoScene() {
@@ -201,48 +310,5 @@ function getData(param, callback) {
         return returnValue;
     });
 }
-
-
-const styles = StyleSheet.create({
-    scene: {
-        flex: 1
-    },
-    bigTitle: {
-        fontSize: 40,
-    },
-    title: {
-        fontSize: 20,
-        marginBottom: 10
-    },
-    text: {
-        fontSize: 20,
-        flex: 2
-    },
-
-    // sections of the page
-    blueSky: {
-        alignItems: 'center',
-        backgroundColor: colors.skyBlue,
-        padding: 30
-    },
-    welcome: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 40
-    },
-    sponsors: {
-        alignItems: 'center'
-    },
-    row: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        padding: 10,
-        backgroundColor: '#F6F6F6',
-    },
-    thumb: {
-        width: 64,
-        height: 64,
-    },
-});
 
 export default CompanyInfoScene;
