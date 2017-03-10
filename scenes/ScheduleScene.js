@@ -72,6 +72,7 @@ class ScheduleScene extends Component {
     });
   }
 
+
   componentDidMount() {
     // make sure we aren't overwriting Firebase data with locally cached data
     this.fetchData().then(this.listenForItems.bind(this));
@@ -88,7 +89,6 @@ class ScheduleScene extends Component {
   }
 
   _renderRow(rowData) {
-
     //if the header is just a DATEHEADER, then create a new kind of date header
     if (rowData.type === 'DATEHEADER') {
       return (
@@ -96,9 +96,7 @@ class ScheduleScene extends Component {
           <BoldAleoText style={{color: '#ffffff'}}>{rowData.date}</BoldAleoText>
         </View>
       );
-
     } else {
-
       return (
         <Accordion time={rowData.time} title={rowData.name} >
           <View style={{

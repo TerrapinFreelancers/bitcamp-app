@@ -132,6 +132,7 @@ var List = React.createClass({
         );
     },
 
+
     _renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
         var param = this;
         var imgSource = THUMB_URLS[rowID];
@@ -173,7 +174,7 @@ var List = React.createClass({
   },
 
    _revertPage: function(){
-     this.setState({body: 
+     this.setState({body:
         <UIExplorerPage
             noSpacer={true}
             noScroll={true}>
@@ -201,7 +202,7 @@ var List = React.createClass({
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         var dataSource = ds.cloneWithRows(rowData.prizes);
         console.log(ds);
-        this.setState({body: 
+        this.setState({body:
            <View style={styles.scene}>
           <ScrollView>
             <View style={styles.blueSky}>
@@ -231,7 +232,7 @@ var List = React.createClass({
 
   },
 
- 
+
 
 
     _renderSeparator: function(sectionID: number, rowID: number, adjacentRowHighlighted: bool) {
@@ -267,7 +268,7 @@ function CompanyInfoScene() {
         </View>
         <List/>
 
-      </ScrollView> 
+      </ScrollView>
     </View>
     );
 }
