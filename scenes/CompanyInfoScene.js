@@ -12,9 +12,10 @@ import {
     ScrollView,
     ListView,
     TouchableHighlight,
-    RecyclerViewBackedScrollView,
+    Dimensions,
     Navigator,
-    Button,
+    TouchableWithoutFeedback,
+    Button
 } from 'react-native';
 import firebaseApp from '../shared/firebase'
 import {
@@ -23,6 +24,8 @@ import {
 import aleofy from '../shared/aleo';
 const AleoText = aleofy(Text);
 const BoldAleoText = aleofy(Text, 'Bold');
+
+// import RNFetchBlob from "react-native-fetch-blob"
 /*// Initialize Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyCy09lKL33_wEdgE-lCp0zZTz89GwSuuxo",
@@ -44,16 +47,92 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     text: {
-        fontSize: 20,
-        flex: 2
+        fontSize: 20
+    },
+    description:{
+      paddingLeft:15,
+      paddingRight:8,
+      flex:2
+    },
+    overlay: {
+      flex: 1,
+      position: 'absolute',
+      left: 0,
+      top: 0,
+      opacity: .5,
+      backgroundColor:'black',
+      height: Dimensions.get('window').height,
+      width: Dimensions.get('window').width
+    },
+    overlayTestVertical:{
+      flex: 1,
+      position: 'absolute',
+      left: 0,
+      top: 0,
+      height: Dimensions.get('window').height,
+      width: Dimensions.get('window').width
+    },
+    overlayTestVertical2:{
+      flex:0
+    },
+    overlayTestHorizontal:{
+      flex: 1,
+      flexDirection:'row'
+    },
+    blackPart:{
+      flex: 1,
+      opacity: .5,
+      backgroundColor:'black'
+    },
+    blackPart2:{
+      flex: 0,
+      opacity: .5,
+      backgroundColor:'black'
+    },
+    container:{
+      alignItems:'center',
+      position: 'absolute',
+      flexDirection:'row',
+      flex: 1
+    },
+    modalOverlay:{
+      flex: 1,
+      position: 'absolute',
+      alignItems: 'center',
+      justifyContent: 'center',
+      left: 0,
+      top: 0,
+      height: Dimensions.get('window').height,
+      width: Dimensions.get('window').width
+    },
+    modal:{
+      flex:0,
+      alignItems:'center',
+      padding: 5,
+      maxWidth: Dimensions.get('window').width * 4 / 5,
+      minHeight: 100,
+      borderBottomWidth: 1,
+      borderRightWidth: 1,
+      borderColor: 'black',
+      borderRadius: 5,
+      backgroundColor:'white',
+      flexDirection:'row'
+    },
+    modalBackground:{
+      flex:0,
+      alignItems:'center',
+      backgroundColor: 'rgba(0,0,0,.5)'
+    },
+    modalImage:{
+      flex:0,
+      padding:5
+    },
+    modalText:{
+      padding:8,
+      flex:1
     },
 
     // sections of the page
-    blueSky: {
-        alignItems: 'center',
-        backgroundColor: colors.skyBlue,
-        padding: 30
-    },
     welcome: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -66,17 +145,19 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         padding: 10,
-        backgroundColor: '#F6F6F6',
+        // backgroundColor: '#F6F6F6',
+        // backgroundColor: '#FFAF3F'
+        backgroundColor:'#E5D8CE',
     },
     thumb: {
         width: 64,
         height: 64,
+        // backgroundColor: 'white'
     },
 });
 
-
-
-var UIExplorerPage = require('./dependencies/UIExplorerPage');
+const defaultImage = "./images/no_image_available.png"
+// var UIExplorerPage = require('./dependencies/UIExplorerPage');
 var THUMB_URLS = [
 ];
 
@@ -88,6 +169,8 @@ var List = React.createClass({
             dataSource: data,
             loaded: false,
             pressed: false,
+            info: null,
+            thumbnailSource: null,
             body: <Text>Loading</Text>,
         };
         getData(this, function(returnValue, param) {
@@ -112,48 +195,108 @@ var List = React.createClass({
     },
 
     render: function() {
-        if(this.state.pressed){
-            body = this.state.body;
-        }
-        else{
-            body = <UIExplorerPage
-                    noSpacer={true}
-                    noScroll={true}>
+      let overlay;
+      if (this.state.pressed){
+      overlay = <View style={styles.overlayTestVertical}>
+                    <View style={styles.overlayTestHorizontal}>
+                      <TouchableWithoutFeedback style={{flex:1}} onPress={() => this.setState({pressed:false})}>
+                        <View style={styles.blackPart}/>
+                      </TouchableWithoutFeedback>
+                    </View>
+                    <View style={{flex:0, flexDirection:'row'}}>
+                      <TouchableWithoutFeedback style={{flex:1}} onPress={() => this.setState({pressed:false})}>
+                        <View style={styles.blackPart}/>
+                      </TouchableWithoutFeedback>
 
-                    <ListView
-                      dataSource={this.state.dataSource}
-                      renderRow={this._renderRow}
-                      renderSeparator={this._renderSeparator}
-                    />
-                  </UIExplorerPage>;
-        }
-        return (
-            body
-        );
+
+                      <View style={styles.overlayTestVertical2}>
+                        <View style={styles.modalBackground}>
+                          <View style={styles.modal}>
+
+                            <View style={styles.modalText}>
+                              <BoldAleoText style = {{fontSize:26}}>
+                                {this.state.info && this.state.info.name}
+                              </BoldAleoText>
+
+
+                              <Text style = {{fontSize:13, fontFamily: 'Arial', paddingTop:10}}>
+                                {this.state.info && this.state.info.challenge}
+                              </Text>
+                              <Text style = {{fontSize:13, fontFamily: 'Arial'}}>
+                                Prize(s): {this.state.info && this.state.info.prizes[0]}
+                              </Text>
+
+                            </View>
+                            <View style={styles.modalImage}>
+                              <Image style={styles.thumb} source={{uri:this.state.thumbnailSource}} />
+                            </View>
+
+                          </View>
+                        </View>
+                        <View style={styles.overlayTestHorizontal}>
+                          <TouchableWithoutFeedback style={{flex:1}} onPress={() => this.setState({pressed:false})}>
+                            <View style={styles.blackPart}/>
+                          </TouchableWithoutFeedback>
+                        </View>
+                      </View>
+
+
+                      <TouchableWithoutFeedback style={{flex:1}} onPress={() => this.setState({pressed:false})}>
+                        <View style={styles.blackPart}/>
+                      </TouchableWithoutFeedback>
+                    </View>
+                    <View style={styles.overlayTestHorizontal}>
+                      <TouchableWithoutFeedback style={{flex:1}} onPress={() => this.setState({pressed:false})}>
+                        <View style={styles.blackPart}/>
+                      </TouchableWithoutFeedback>
+                    </View>
+                  </View>;
+      }
+      return(
+        <View style = {{flex:1}}>
+          <ListView
+            dataSource={this.state.dataSource}
+            renderRow={this._renderRow}
+            renderSeparator={this._renderSeparator}
+          />
+          {this.state.pressed && overlay}
+        </View>
+      );
     },
-
 
     _renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
         var param = this;
         var imgSource = THUMB_URLS[rowID];
         if(!this.state.loaded){
-            return(<Text>Loading Data...</Text>);
+          return(<Text>Loading Data...</Text>);
         }
         else{
+          let clippedChallenge = rowData.challenge;
+          let clippedPrizes = "Prize(s): " + rowData.prizes[0];
+          if (clippedPrizes.length > 40){
+            clippedPrizes = clippedPrizes.substring(0, 37) + "...";
+          }
+          if (clippedChallenge.length > 40){
+            clippedChallenge = clippedChallenge.substring(0,37) + "...";
+          }
         return (
               <TouchableHighlight onPress={() => {
-                this._pressRow(rowData, rowID);
-                  highlightRow(sectionID, rowID);
+                  var imgSource = THUMB_URLS[rowID];
+                  this.setState({
+                      pressed: true,
+                      info: rowData,
+                      thumbnailSource:THUMB_URLS[rowID]
+                  });
+                  //highlightRow(sectionID, rowID);
                 }}>
                 <View>
                   <View style={styles.row}>
-                    <Image style={styles.thumb} source={{uri:imgSource}} />
-                    <Text style={styles.text}>
-                      {rowData.name}
-                    </Text>
-                    <Text style={styles.text}>
-                      {rowData.challenge}
-                    </Text>
+                    <Image style={styles.thumb} source={{uri:THUMB_URLS[rowID]}} />
+                    <View style={styles.description}>
+                      <BoldAleoText style = {{fontSize:18}}>{rowData.name}</BoldAleoText>
+                      <AleoText style = {{fontSize:14, color:'#444444', paddingTop:5}}>{clippedChallenge}</AleoText>
+                      <AleoText style = {{fontSize:14, color:'#444444', fontStyle:'italic'}}>{clippedPrizes}</AleoText>
+                    </View>
                   </View>
                 </View>
               </TouchableHighlight>
@@ -163,28 +306,23 @@ var List = React.createClass({
 
   _renderPrizes: function(rowData){
     return(
-    <View>
-          <View style={styles.row}>
-            <Text style={styles.text}>
-              {rowData}
-            </Text>
-          </View>
+      <View>
+        <View style={styles.row}>
+          <Text style={styles.text}>
+            {rowData}
+          </Text>
         </View>
-        );
+      </View>
+      );
   },
 
    _revertPage: function(){
      this.setState({body:
-        <UIExplorerPage
-            noSpacer={true}
-            noScroll={true}>
-
             <ListView
               dataSource={this.state.dataSource}
               renderRow={this._renderRow}
               renderSeparator={this._renderSeparator}
             />
-      </UIExplorerPage>
       });
   },
 
@@ -199,48 +337,16 @@ var List = React.createClass({
         this.setState({
             pressed: true
         });
-        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-        var dataSource = ds.cloneWithRows(rowData.prizes);
-        console.log(ds);
-        this.setState({body:
-           <View style={styles.scene}>
-          <ScrollView>
-            <View style={styles.blueSky}>
-    <BoldAleoText style={styles.bigTitle}>{rowData.name}</BoldAleoText>
-            </View>
-                <View>
-                  <View style={styles.row}>
-                    <Text style={styles.text}>
-                      {rowData.challenge}
-                    </Text>
-                  </View>
-                  <ListView
-                      dataSource={dataSource}
-                      renderRow={this._renderPrizes}
-                      renderSeparator={this._renderSeparator}
-                    />
-                  <TouchableHighlight onPress={() => {
-                        this._revertPage();
-                    }}>
-                    <View style={styles.row}><Text>Back to Prizes</Text></View>
-                </TouchableHighlight>
-                </View>
-
-            </ScrollView>
-            </View>
-    });
-
   },
-
-
-
 
     _renderSeparator: function(sectionID: number, rowID: number, adjacentRowHighlighted: bool) {
         return ( < View key = { `${sectionID}-${rowID}` }
             style = {
                 {
                     height: adjacentRowHighlighted ? 4 : 1,
-                    backgroundColor: adjacentRowHighlighted ? '#3B5998' : '#CCCCCC',
+                    // backgroundColor: adjacentRowHighlighted ? '#3B5998' : '#CCCCCC',
+                    backgroundColor: adjacentRowHighlighted ? '#7F6C5F' : '#7F6C5F',
+
                 }
             }
             />
@@ -261,15 +367,8 @@ function CompanyInfoScene() {
     } = styles;
     return (
         <View style={scene}>
-      <ScrollView>
-
-        <View style={blueSky}>
-          <BoldAleoText style={bigTitle}>Prizes!</BoldAleoText>
+          <List/>
         </View>
-        <List/>
-
-      </ScrollView>
-    </View>
     );
 }
 
@@ -290,11 +389,8 @@ function getRealImageURL(fileName){
         ref.getDownloadURL().then(function(url) {
             resolve(url);
         });
-
     });
-
 }
-
 
 async function getJSON(url, callback) {
     try {
