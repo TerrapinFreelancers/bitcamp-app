@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform } from 'react-native';
+import { Platform, View } from 'react-native';
 
 import ScheduleScene from './scenes/ScheduleScene';
 import CompanyInfoScene from './scenes/CompanyInfoScene';
@@ -12,32 +12,38 @@ import CountdownScene from './scenes/CountdownScene';
 
 import CustomTabBarOverlay from './CustomTabBarOverlay';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
+import { colors } from './shared/styles';
 
 export default function MenuTab(props) {
 
   // ios styles
   let menuTabPosition = 'bottom';
   let iconPrefix = 'ios';
-  let style = { marginTop: 20 };
+  let style = { flex: 1 };
+  let iOS = true;
+  let topBar = <View style={{flex:0,backgroundColor:colors.lightBrown, height:20}}/>;
 
   if (Platform.OS === 'android') {
     menuTabPosition = 'top';
     iconPrefix = 'md';
-    style = {};
+    iOS = false;
   }
 
   return (
-    <ScrollableTabView
-      tabBarPosition={menuTabPosition}
-      style={style}
-      initialPage={0}
-      renderTabBar={() => <CustomTabBarOverlay />}
-    >
-      <CountdownScene   tabLabel={`${iconPrefix}-home`} />
-      <ScheduleScene    tabLabel={`${iconPrefix}-calendar`} />
-      <MapScene         tabLabel={`${iconPrefix}-map`} />
-      <CompanyInfoScene tabLabel={`${iconPrefix}-trophy`} />
-      <MentorsScene     tabLabel={`${iconPrefix}-help-circle`} />
-    </ScrollableTabView>
+    <View style={{flex:1}}>
+      {iOS && topBar}
+      <ScrollableTabView
+        tabBarPosition={menuTabPosition}
+        style={style}
+        initialPage={0}
+        renderTabBar={() => <CustomTabBarOverlay />}
+      >
+        <CountdownScene   tabLabel={`${iconPrefix}-home`} />
+        <ScheduleScene    tabLabel={`${iconPrefix}-calendar`} />
+        <MapScene         tabLabel={`${iconPrefix}-map`} />
+        <CompanyInfoScene tabLabel={`${iconPrefix}-trophy`} />
+        <MentorsScene     tabLabel={`${iconPrefix}-help-circle`} />
+      </ScrollableTabView>
+    </View>
   );
 }
