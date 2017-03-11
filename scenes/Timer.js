@@ -47,11 +47,11 @@ class Timer extends Component {
 
     if (this.state.time <= eventTime) {
       remain = eventTime.getTime() - this.state.time.getTime();
-      message = 'Time until hacking begins!';
+      message = ' Time until hacking begins! ';
 
     } else if (this.state.time > eventTime && this.state.time < endHackingTime) {
       remain = endHackingTime.getTime() - this.state.time.getTime();
-      message = 'Time until hacking ends!';
+      message = ' Time until hacking ends! ';
 
     } else {
       remain = 0;
