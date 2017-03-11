@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Platform, View } from 'react-native';
 
 import ScheduleScene from './scenes/ScheduleScene';
-import CompanyInfoScene from './scenes/CompanyInfoScene';
+import ChallengesScene from './scenes/ChallengesScene';
 import MapScene from './scenes/MapScene';
 import MentorsScene from './scenes/MentorsScene';
 import CountdownScene from './scenes/CountdownScene';
@@ -41,7 +41,7 @@ export default function MenuTab(props) {
         <CountdownScene   tabLabel={`${iconPrefix}-home`} />
         <ScheduleScene    tabLabel={`${iconPrefix}-calendar`} />
         <MapScene         tabLabel={`${iconPrefix}-map`} />
-        <CompanyInfoScene tabLabel={`${iconPrefix}-trophy`} />
+        <ChallengesScene tabLabel={`${iconPrefix}-trophy`} />
         <MentorsScene     tabLabel={`${iconPrefix}-help-circle`} />
       </ScrollableTabView>
     </View>
