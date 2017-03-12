@@ -1,4 +1,3 @@
-
 import React, {
     Component
 } from 'react';
@@ -11,7 +10,8 @@ import {
     TouchableHighlight,
     Dimensions,
     TouchableWithoutFeedback,
-    AsyncStorage
+    AsyncStorage,
+    Platform
 } from 'react-native';
 import firebaseApp from '../shared/firebase'
 import {colors} from '../shared/styles';
@@ -62,10 +62,12 @@ class ChallengesScene extends Component{
               var image = challenges[i].image;
               promises.push(thisBinded.getRealImageURL(image));
           }
-          var realURLS = await Promise.all(promises);
-          promises = [];
-          for(var i = 0; i < size; i++){
-              promises.push(thisBinded.getCacheURL(realURLS[i]));
+          if (Platform.OS === 'ios') {
+            var realURLS = await Promise.all(promises);
+            promises = [];
+            for(var i = 0; i < size; i++){
+                promises.push(thisBinded.getCacheURL(realURLS[i]));
+            }
           }
           let THUMB_URLS = await Promise.all(promises);
           for(var i = 0; i < size; i++){
@@ -110,16 +112,16 @@ class ChallengesScene extends Component{
   }
 
   getCacheURL(uri){
-    const path = RNFetchBlob.fs.dirs.CacheDir + "_immutable_images/" + SHA1(uri) + ".jpg";
-    return RNFetchBlob.fs.exists(path).then(exists => {
-      if(exists) {
-        return path;
-      } else {
-        return RNFetchBlob.config({ path })
-                .fetch("GET", uri, {})
-                .then(() => path);
-      }
-    });
+      const path = RNFetchBlob.fs.dirs.CacheDir + "_immutable_images/" + SHA1(uri) + ".jpg";
+      return RNFetchBlob.fs.exists(path).then(exists => {
+        if(exists) {
+          return path;
+        } else {
+          return RNFetchBlob.config({ path })
+                  .fetch("GET", uri, {})
+                  .then(() => path);
+        }
+      });
   }
 
   async fetchData(){
