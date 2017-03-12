@@ -97,26 +97,22 @@ class ScheduleScene extends Component {
         </View>
       );
     } else {
-      if (rowData.company.length == 0) {
-        return (
-          <Accordion time={rowData.time} title={rowData.name} >
-            <View style={{
-              backgroundColor: '#ffffff'
-            }}>
-              <AleoText style={styles.content}>{rowData.description}</AleoText>
-              <AleoText style={styles.content}>Location: {rowData.location}</AleoText>
-            </View>
-          </Accordion>
-        );
+      var company;
+      var location;
+      if (rowData.company.length != 0) {
+        company = (<AleoText style={styles.content}>Company: {rowData.company}</AleoText>);
+      }
+      if (rowData.location.length != 0) {
+        location = (<AleoText style={styles.content}>Location: {rowData.location}</AleoText>);
       }
       return (
-        <Accordion time={rowData.time} title={rowData.name} >
+        <Accordion time={rowData.time} title={rowData.name}>
           <View style={{
             backgroundColor: '#ffffff'
           }}>
             <AleoText style={styles.content}>{rowData.description}</AleoText>
-            <AleoText style={styles.content}>Company: {rowData.company}</AleoText>
-            <AleoText style={styles.content}>Location: {rowData.location}</AleoText>
+            {company}
+            {location}
           </View>
         </Accordion>
       );
@@ -140,7 +136,8 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingBottom: 10,
     paddingLeft: 10,
-    color: '#000',
+    color: colors.lightBrown,
+    backgroundColor: colors.darkBrown,
   },
   text: {
     flex: 1,
