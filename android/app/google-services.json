@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "113869788639",
+    "firebase_url": "https://bitcamp-2017-761ae.firebaseio.com",
+    "project_id": "bitcamp-2017-761ae",
+    "storage_bucket": "bitcamp-2017-761ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:113869788639:android:38e87a685a9e67b7",
+        "android_client_info": {
+          "package_name": "com.bitcampapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "113869788639-f06teovgs42v3ht2jnnrft8d8mc68b2n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnu6CUVAx_dkquSXRfOlvqzWAG8TAeDi8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
