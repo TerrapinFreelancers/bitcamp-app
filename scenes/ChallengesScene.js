@@ -10,11 +10,14 @@ import {
     TouchableHighlight,
     Dimensions,
     TouchableWithoutFeedback,
-    AsyncStorage
+    AsyncStorage,
+    Platform
 } from 'react-native';
 import firebaseApp from '../shared/firebase'
 import {colors} from '../shared/styles';
 import aleofy from '../shared/aleo';
+import RNFetchBlob from "react-native-fetch-blob";
+const SHA1 = require("crypto-js/sha1");
 const AleoText = aleofy(Text);
 const BoldAleoText = aleofy(Text, 'Bold');
 const defaultImage = require('./images/no_image_available.png');
@@ -59,6 +62,13 @@ class ChallengesScene extends Component{
               var image = challenges[i].image;
               promises.push(thisBinded.getRealImageURL(image));
           }
+          if (Platform.OS === 'ios') {
+            var realURLS = await Promise.all(promises);
+            promises = [];
+            for(var i = 0; i < size; i++){
+                promises.push(thisBinded.getCacheURL(realURLS[i]));
+            }
+          }
           let THUMB_URLS = await Promise.all(promises);
           for(var i = 0; i < size; i++){
             challenges[i].image = THUMB_URLS[i];
@@ -98,6 +108,19 @@ class ChallengesScene extends Component{
           getJSON(url, function(returnValue) {
               callback(returnValue);
           });
+      });
+  }
+
+  getCacheURL(uri){
+      const path = RNFetchBlob.fs.dirs.CacheDir + "_immutable_images/" + SHA1(uri) + ".jpg";
+      return RNFetchBlob.fs.exists(path).then(exists => {
+        if(exists) {
+          return path;
+        } else {
+          return RNFetchBlob.config({ path })
+                  .fetch("GET", uri, {})
+                  .then(() => path);
+        }
       });
   }
 
