@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#a9a9a9',
+    borderTopColor: '#a9a9a9',
     backgroundColor: '#ffaf3f',
   },
   content: {
@@ -136,8 +137,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingBottom: 10,
     paddingLeft: 10,
-    color: colors.lightBrown,
-    backgroundColor: colors.darkBrown,
+    color: '#444',
   },
   text: {
     flex: 1,
