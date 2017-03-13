@@ -888,7 +888,7 @@
     },
     "crypto-js": {
       "version": "3.1.9-1",
-      "from": "crypto-js@>=3.1.9-1 <4.0.0",
+      "from": "https://registry.npmjs.org/crypto-js/-/crypto-js-3.1.9-1.tgz",
       "resolved": "https://registry.npmjs.org/crypto-js/-/crypto-js-3.1.9-1.tgz"
     },
     "csrf": {
@@ -933,7 +933,7 @@
     },
     "decamelize": {
       "version": "1.2.0",
-      "from": "decamelize@>=1.1.2 <2.0.0",
+      "from": "decamelize@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/decamelize/-/decamelize-1.2.0.tgz"
     },
     "decompress": {
@@ -1309,7 +1309,8 @@
         "source-map": {
           "version": "0.2.0",
           "from": "source-map@>=0.2.0 <0.3.0",
-          "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.2.0.tgz"
+          "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.2.0.tgz",
+          "optional": true
         }
       }
     },
@@ -1525,7 +1526,7 @@
         },
         "faye-websocket": {
           "version": "0.9.3",
-          "from": "https://registry.npmjs.org/faye-websocket/-/faye-websocket-0.9.3.tgz",
+          "from": "faye-websocket@0.9.3",
           "resolved": "https://registry.npmjs.org/faye-websocket/-/faye-websocket-0.9.3.tgz"
         },
         "hoek": {
@@ -1575,7 +1576,7 @@
         },
         "rsvp": {
           "version": "3.2.1",
-          "from": "https://registry.npmjs.org/rsvp/-/rsvp-3.2.1.tgz",
+          "from": "rsvp@3.2.1",
           "resolved": "https://registry.npmjs.org/rsvp/-/rsvp-3.2.1.tgz"
         },
         "safe-buffer": {
@@ -1819,7 +1820,7 @@
     },
     "gulp-sourcemaps": {
       "version": "1.6.0",
-      "from": "gulp-sourcemaps@>=1.5.2 <2.0.0",
+      "from": "gulp-sourcemaps@1.6.0",
       "resolved": "https://registry.npmjs.org/gulp-sourcemaps/-/gulp-sourcemaps-1.6.0.tgz",
       "dependencies": {
         "vinyl": {
@@ -2024,7 +2025,7 @@
     },
     "is-glob": {
       "version": "2.0.1",
-      "from": "is-glob@>=2.0.0 <3.0.0",
+      "from": "is-glob@>=2.0.1 <3.0.0",
       "resolved": "https://registry.npmjs.org/is-glob/-/is-glob-2.0.1.tgz"
     },
     "is-gzip": {
@@ -2490,7 +2491,7 @@
     },
     "micromatch": {
       "version": "2.3.11",
-      "from": "micromatch@>=2.3.7 <3.0.0",
+      "from": "micromatch@>=2.1.5 <3.0.0",
       "resolved": "https://registry.npmjs.org/micromatch/-/micromatch-2.3.11.tgz"
     },
     "mime": {
@@ -2925,7 +2926,7 @@
     },
     "react": {
       "version": "15.3.1",
-      "from": "react@>=15.3.0 <15.4.0",
+      "from": "react@15.3.1",
       "resolved": "https://registry.npmjs.org/react/-/react-15.3.1.tgz"
     },
     "react-clone-referenced-element": {
@@ -2940,12 +2941,12 @@
     },
     "react-native": {
       "version": "0.32.0",
-      "from": "react-native@latest",
+      "from": "react-native@0.32.0",
       "resolved": "https://registry.npmjs.org/react-native/-/react-native-0.32.0.tgz"
     },
     "react-native-accordion": {
       "version": "1.0.1",
-      "from": "react-native-accordion@latest",
+      "from": "react-native-accordion@>=1.0.1 <2.0.0",
       "resolved": "https://registry.npmjs.org/react-native-accordion/-/react-native-accordion-1.0.1.tgz",
       "dependencies": {
         "react-tween-state": {
@@ -2957,7 +2958,7 @@
     },
     "react-native-fetch-blob": {
       "version": "0.10.2",
-      "from": "react-native-fetch-blob@>=0.10.2 <0.11.0",
+      "from": "react-native-fetch-blob@latest",
       "resolved": "https://registry.npmjs.org/react-native-fetch-blob/-/react-native-fetch-blob-0.10.2.tgz",
       "dependencies": {
         "glob": {
@@ -3038,7 +3039,7 @@
     },
     "react-tween-state": {
       "version": "0.1.5",
-      "from": "react-tween-state@latest",
+      "from": "https://registry.npmjs.org/react-tween-state/-/react-tween-state-0.1.5.tgz",
       "resolved": "https://registry.npmjs.org/react-tween-state/-/react-tween-state-0.1.5.tgz"
     },
     "read-all-stream": {
@@ -3896,7 +3897,7 @@
     },
     "xtend": {
       "version": "4.0.1",
-      "from": "xtend@>=4.0.0 <4.1.0",
+      "from": "xtend@>=4.0.1 <4.1.0",
       "resolved": "https://registry.npmjs.org/xtend/-/xtend-4.0.1.tgz"
     },
     "y18n": {
