@@ -16,6 +16,7 @@
     ]
   },
   "dependencies": {
+    "crypto-js": "https://registry.npmjs.org/crypto-js/-/crypto-js-3.1.9-1.tgz",
     "firebase": "^3.6.8",
     "react": "15.3.1",
     "react-native": "0.32.0",
@@ -24,6 +25,7 @@
     "react-native-orientation": "git+https://git@github.com/yamill/react-native-orientation.git",
     "react-native-scrollable-tab-view": "^0.6.0",
     "react-native-sortable-list": "0.0.5",
-    "react-native-vector-icons": "^2.1.0"
+    "react-native-vector-icons": "^2.1.0",
+    "react-tween-state": "https://registry.npmjs.org/react-tween-state/-/react-tween-state-0.1.5.tgz"
   }
 }
