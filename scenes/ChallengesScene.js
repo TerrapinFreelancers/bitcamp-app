@@ -11,8 +11,7 @@ import {
     Dimensions,
     TouchableWithoutFeedback,
     AsyncStorage,
-    Platform,
-    BackAndroid
+    Platform
 } from 'react-native';
 import firebaseApp from '../shared/firebase'
 import {colors} from '../shared/styles';
@@ -44,7 +43,6 @@ class ChallengesScene extends Component{
   componentDidMount(){
     console.log("INSIDE OF componentDidMount");
     this.fetchData().then(this.listenForItems.bind(this));
-    BackAndroid.addEventListener('hardwareBackPress', this.onBackPress.bind(this));
   }
 
   listenForItems(){
@@ -157,17 +155,6 @@ class ChallengesScene extends Component{
       <View style={{flex:size, flexDirection:'row'}}>
         {onTouchExit}
       </View>);
-  }
-
-
-  onBackPress(){
-    console.log("PRESSED:" + this.state.pressed);
-    if(this.state.pressed){
-      this.setState({pressed:false});
-      return true;
-    }else{
-      return false;
-    }
   }
 
   render(){
