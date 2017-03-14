@@ -11,7 +11,8 @@ import {
     Dimensions,
     TouchableWithoutFeedback,
     AsyncStorage,
-    Platform
+    Platform,
+    BackAndroid
 } from 'react-native';
 import firebaseApp from '../shared/firebase'
 import {colors} from '../shared/styles';
@@ -43,6 +44,7 @@ class ChallengesScene extends Component{
   componentDidMount(){
     console.log("INSIDE OF componentDidMount");
     this.fetchData().then(this.listenForItems.bind(this));
+    BackAndroid.addEventListener('hardwareBackPress', this.onBackPress.bind(this));
   }
 
   listenForItems(){
@@ -157,6 +159,17 @@ class ChallengesScene extends Component{
       </View>);
   }
 
+
+  onBackPress(){
+    console.log("PRESSED:" + this.state.pressed);
+    if(this.state.pressed){
+      this.setState({pressed:false});
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   render(){
     let overlay;
     if (this.state.pressed){
@@ -168,7 +181,6 @@ class ChallengesScene extends Component{
     shadowBottom = this.shadowGenerator(2, onTouchExit);
     overlay = (<View style={styles.overlayVertical}>
                   {shadowTop}
-
                   <View style={{flex:0, flexDirection:'row'}}>
                     {onTouchExit}
                     <View style={styles.overlayVertical2}>
@@ -198,7 +210,6 @@ class ChallengesScene extends Component{
                     </View>
                     {onTouchExit}
                   </View>
-
                   {shadowBottom}
                 </View>);
     }
