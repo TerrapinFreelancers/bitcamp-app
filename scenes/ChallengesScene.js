@@ -12,7 +12,7 @@ import {
     TouchableWithoutFeedback,
     AsyncStorage,
     Platform,
-    BackAndroid
+    BackAndroid 
 } from 'react-native';
 import firebaseApp from '../shared/firebase'
 import {colors} from '../shared/styles';
