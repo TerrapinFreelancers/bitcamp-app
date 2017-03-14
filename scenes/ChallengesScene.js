@@ -43,7 +43,9 @@ class ChallengesScene extends Component{
 
   componentDidMount(){
     console.log("INSIDE OF componentDidMount");
-    BackAndroid.addEventListener('hardwareBackPress', this.onBackPress.bind(this));
+    if(Platform.OS == 'android'){
+          BackAndroid.addEventListener('hardwareBackPress', this.onBackPress.bind(this));
+        }
     this.fetchData().then(this.listenForItems.bind(this));
   }
 
