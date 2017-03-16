@@ -49,3 +49,5 @@ android/keystores/debug.keystore
 android/app/google-services.json
 
 .vscode/
+
+my-release-key.keystore
