@@ -39,23 +39,19 @@ class Timer extends Component {
   }
 
   render() {
-    const eventTime = new Date(2017, 3, 7, 22, 0, 0, 0); // when hacking begins
+    const eventTime      = new Date(2017, 3, 7, 22, 0, 0, 0); // when hacking begins
     const endHackingTime = new Date(2017, 3, 9, 10, 0, 0, 0);
 
     let remain;  // the time remaining until the next 'event' (either hacking begins or hacking ends)
-    let message; // the message we want to display
 
     if (this.state.time <= eventTime) {
       remain = eventTime.getTime() - this.state.time.getTime();
-      message = ' Time until hacking begins! ';
 
     } else if (this.state.time > eventTime && this.state.time < endHackingTime) {
       remain = endHackingTime.getTime() - this.state.time.getTime();
-      message = ' Time until hacking ends! ';
 
     } else {
       remain = 0;
-      message = 'Hacking is over!';
     }
 
     const days    = Math.floor((remain / 86400000));
@@ -65,35 +61,32 @@ class Timer extends Component {
 
     return (
       <View style={styles.scene}>
-       <Image
-          source={require('./images/flame3.gif')}
-          style={styles.fire}
-        />
+
         <Image
-          source={require('./images/logs.png')}
-          style={styles.logs}
-        />
-        <View style={{ marginTop: 20, marginBottom: 20,}}>
-          <TimerText style={[styles.shadow, styles.message]}>
-            {message}
-          </TimerText>
-        </View>
+          source={require('./images/fire-bg.png')}
+          style={styles.fireBackground}>
+          <Image
+            source={require('./images/flame3.gif')}
+            style={styles.fire} />
+          <Image source={require('./images/logs.png')} />
+        </Image>
+
         <View style={styles.row}>
           <View style={styles.col}>
-            <TimerText style={styles.bigTitle}>{days}</TimerText>
-            <TimerText style={styles.title}>D</TimerText>
+            <TimerText style={styles.numbers}>{days}</TimerText>
+            <TimerText style={styles.dhms}>Days</TimerText>
           </View>
           <View style={styles.col}>
-            <TimerText style={styles.bigTitle}>{hours}</TimerText>
-            <TimerText style={styles.title}>H</TimerText>
+            <TimerText style={styles.numbers}>{hours}</TimerText>
+            <TimerText style={styles.dhms}>Hours</TimerText>
           </View>
           <View style={styles.col}>
-            <TimerText style={styles.bigTitle}>{minutes}</TimerText>
-            <TimerText style={styles.title}>M</TimerText>
+            <TimerText style={styles.numbers}>{minutes}</TimerText>
+            <TimerText style={styles.dhms}>Minutes</TimerText>
           </View>
           <View style={styles.col}>
-            <TimerText style={styles.bigTitle}>{seconds}</TimerText>
-            <TimerText style={styles.title}>S</TimerText>
+            <TimerText style={styles.numbers}>{seconds}</TimerText>
+            <TimerText style={styles.dhms}>Seconds</TimerText>
           </View>
         </View>
       </View>
@@ -105,50 +98,36 @@ const styles = StyleSheet.create({
   scene: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center'
   },
   fire: {
-    marginTop: 80,
-    width: 100,
-    height: 100,
-    alignItems: 'center',
+    marginTop: 40 // position the gif inside the ring
   },
-  logs: {
-    width: 114,
-    height: 50,
-    marginBottom: 20,
-    alignItems: 'center',
+  fireBackground: {
+    alignItems: 'center'
   },
-
   // text sizes
   shadow: {
     textShadowColor: '#000000',
     textShadowOffset: {width: 0.1, height: 0.1},
     textShadowRadius: 5,
     color: colors.cloudWhite,
-    textAlign: 'center',
+    textAlign: 'center'
   },
-  bigTitle: {
+  numbers: {
     fontSize: 40,
-    marginBottom: 10,
+    marginTop: 50,
+    marginBottom: 20
   },
-  title: {
-    fontSize: 15,
-    marginBottom: 10,
-  },
-  message: {
-    fontSize: 20,
-    marginBottom: 10,
-  },
-  text: {
-    fontSize: 15,
+  dhms: {
+    fontSize: 15
   },
   col: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'column'
   },
   row: {
-    flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
 });
 
