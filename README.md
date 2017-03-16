@@ -1,4 +1,4 @@
-# bitcamp-app
+# Bitcamp App 2017
 ### Set up
 1. Install Node, NPM
 2. Install the React Native CLI: `npm install -g react-native-cli`
