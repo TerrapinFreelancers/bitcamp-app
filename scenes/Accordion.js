@@ -67,22 +67,12 @@ const Accordion = React.createClass({
     });
   },
 
-  _getContentHeight() {
-    if (this.accordionContentRef) {
-      this.accordionContentRef.measure((ox, oy, width, height, px, py) => {
-        // Sets content height in state
-        this.setState({
-          contentHeight: height
-        });
-      });
+  _onLayout(nativeEvent){
+    //onLayout called after rendering. Need to set height
+    //or else height is zero, and animation does not occur
+    if (this.state.contentHeight === 0){
+      this.setState({contentHeight: nativeEvent.nativeEvent.layout.height});
     }
-  },
-
-  componentDidMount() {
-    // Gets content height when component mounts
-    // without setTimeout, measure returns 0 for every value.
-    // See https://github.com/facebook/react-native/issues/953
-    setTimeout(this._getContentHeight);
   },
 
   render() {
@@ -104,8 +94,8 @@ const Accordion = React.createClass({
         {header}
         <View style={{ height: this.getTweeningValue('height') }} >
           <View
-            ref={r => this.accordionContentRef = r }
             collapsable={false} // https://github.com/facebook/react-native/issues/3282
+            onLayout={this._onLayout}
           >
             {this.props.children}
           </View>
