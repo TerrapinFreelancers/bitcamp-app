@@ -15,7 +15,7 @@ Most of this comes from the [React Native Docs](https://facebook.github.io/react
 Follow the docs at [Generating Signed APK](http://facebook.github.io/react-native/releases/0.32/docs/signed-apk-android.html).
 
 In `node_modules/react-native/react.gradle`, add:
-  ```
+  ```gradle
   doLast {
       def moveFunc = { resSuffix ->
           File originalDir = file("${resourcesDir}/drawable-${resSuffix}")
