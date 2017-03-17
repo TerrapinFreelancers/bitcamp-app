@@ -11,10 +11,10 @@ class CountdownScene extends Component {
     var time = new Date().getTime();
     var seconds = Math.floor((time % 86400000) / 1000);
     var hour = 3600;
-    if (seconds > 6 * hour) {
-      seconds = seconds - 6 * hour;
+    if (seconds > 4 * hour) {
+      seconds = seconds - 4 * hour;
     } else {
-      seconds = 24 * hour - 6 * hour + seconds;
+      seconds = 24 * hour - 4 * hour + seconds;
     }
     var opacity;
     switch(image) {
