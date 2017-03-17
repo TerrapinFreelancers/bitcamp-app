@@ -1,0 +1,31 @@
+{
+  "name": "bitcamp-app",
+  "description": "Bitcamp App",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TerrapinFreelancers/bitcamp-app.git"
+  },
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "license": "ISC",
+  "rnpm": {
+    "assets": [
+      "node_modules/react-native-vector-icons/Fonts"
+    ]
+  },
+  "dependencies": {
+    "crypto-js": "https://registry.npmjs.org/crypto-js/-/crypto-js-3.1.9-1.tgz",
+    "firebase": "^3.6.8",
+    "react": "15.3.1",
+    "react-native": "0.32.0",
+    "react-native-accordion": "^1.0.1",
+    "react-native-fetch-blob": "^0.10.2",
+    "react-native-orientation": "git+https://git@github.com/yamill/react-native-orientation.git",
+    "react-native-scrollable-tab-view": "^0.6.0",
+    "react-native-sortable-list": "0.0.5",
+    "react-native-vector-icons": "^2.1.0",
+    "react-tween-state": "https://registry.npmjs.org/react-tween-state/-/react-tween-state-0.1.5.tgz"
+  }
+}
