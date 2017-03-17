@@ -33,3 +33,4 @@ In `node_modules/react-native/react.gradle`, add:
   }
   ```
 in the `currentBundleTask`'s creation block before generating the release APK.
+Solution found from this issue: https://github.com/facebook/react-native/issues/5787
