@@ -30,6 +30,7 @@
 		271740FF1DA1BC7000EBDDDF /* Aleo-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 271740F91DA1BC7000EBDDDF /* Aleo-Regular.otf */; };
 		2778657E1E7494650085AF30 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2778657D1E7494650085AF30 /* GoogleService-Info.plist */; };
 		2778657F1E7494650085AF30 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2778657D1E7494650085AF30 /* GoogleService-Info.plist */; };
+		27D6C3D61E7C4D1700A4E9F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27D6C3D51E7C4D1700A4E9F7 /* LaunchScreen.storyboard */; };
 		27F9E2511D978CCC0010E273 /* FontAwesome.js in Resources */ = {isa = PBXBuildFile; fileRef = 27F9E2501D978CCC0010E273 /* FontAwesome.js */; };
 		2A8E10B1843246088C2190F2 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F28CCFA5C1C7440B8AE81AA8 /* Foundation.ttf */; };
 		2ACE5ACD6B484C888A7A65EB /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E2461A9E7EF4DE1B9F5FE34 /* Ionicons.ttf */; };
@@ -182,6 +183,7 @@
 		276DE303D748DFB74A18110E /* Pods-bitcampappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bitcampappTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-bitcampappTests/Pods-bitcampappTests.release.xcconfig"; sourceTree = "<group>"; };
 		2778657D1E7494650085AF30 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		278E7AE31E749D8400D0D1E8 /* bitcampapp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = bitcampapp.entitlements; path = bitcampapp/bitcampapp.entitlements; sourceTree = "<group>"; };
+		27D6C3D51E7C4D1700A4E9F7 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = bitcampapp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		27F9E2501D978CCC0010E273 /* FontAwesome.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = FontAwesome.js; path = "../node_modules/react-native-vector-icons/FontAwesome.js"; sourceTree = "<group>"; };
 		302AB73578054A8BAE898BD3 /* RCTOrientation.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTOrientation.xcodeproj; path = "../node_modules/react-native-orientation/iOS/RCTOrientation.xcodeproj"; sourceTree = "<group>"; };
 		5057F338CDE248F19F9C6D22 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				27D6C3D51E7C4D1700A4E9F7 /* LaunchScreen.storyboard */,
 			);
 			name = bitcampapp;
 			sourceTree = "<group>";
@@ -720,6 +723,7 @@
 				D9A591722FEC4B79B462851A /* Entypo.ttf in Resources */,
 				492F47D1163949FEB8E52FF5 /* EvilIcons.ttf in Resources */,
 				BECECD33FF1C41DC83C2CBC0 /* FontAwesome.ttf in Resources */,
+				27D6C3D61E7C4D1700A4E9F7 /* LaunchScreen.storyboard in Resources */,
 				2A8E10B1843246088C2190F2 /* Foundation.ttf in Resources */,
 				2ACE5ACD6B484C888A7A65EB /* Ionicons.ttf in Resources */,
 				443FE0C38FB34B48804556FB /* MaterialIcons.ttf in Resources */,
