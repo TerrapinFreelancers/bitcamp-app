@@ -1,0 +1,3 @@
+rootProject.name = 'BitcampApp'
+
+include ':app'
