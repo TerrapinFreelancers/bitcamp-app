@@ -68,7 +68,7 @@ class Timer extends Component {
       <View style={styles.scene}>
 
         <Image
-          source={require('./images/fire-bg.png')}
+          source={require('./images/fire-bg-copy-copy.png')}
           style={styles.fireBackground}>
           <Image
             source={require('./images/flame3.gif')}

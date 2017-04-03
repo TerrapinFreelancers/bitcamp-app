@@ -21,13 +21,15 @@ export default function MenuTab(props) {
   let iconPrefix = 'ios';
   let style = { flex: 1 };
   let iOS = true;
-  let topBar = <View style={{flex:0,backgroundColor:colors.lightBrown, height:20}}/>;
+  let topBar = <View style={{flex:0, backgroundColor:colors.lightBrown, height:20}}/>;
 
   if (Platform.OS === 'android') {
     menuTabPosition = 'top';
     iconPrefix = 'md';
     iOS = false;
   }
+  //{!iOS && (<MentorsScene     tabLabel={`${iconPrefix}-help-circle`} />)}
+  //<MentorsScene     tabLabel={`${iconPrefix}-help-circle`} />
 
   return (
     <View style={{flex:1}}>
@@ -41,8 +43,8 @@ export default function MenuTab(props) {
         <CountdownScene   tabLabel={`${iconPrefix}-home`} />
         <ScheduleScene    tabLabel={`${iconPrefix}-calendar`} />
         <MapScene         tabLabel={`${iconPrefix}-map`} />
-        <ChallengesScene tabLabel={`${iconPrefix}-trophy`} />
-        <MentorsScene     tabLabel={`${iconPrefix}-help-circle`} />
+        <ChallengesScene  tabLabel={`${iconPrefix}-trophy`} />
+        <MentorsScene     tabLabel={`logo-twitter`} />
       </ScrollableTabView>
     </View>
   );

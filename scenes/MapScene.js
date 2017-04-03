@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, Image } from 'react-native';
+import { View, ScrollView, Text, Image, Dimensions, Platform } from 'react-native';
+import PhotoView from 'react-native-photo-view';
+
+const window = Dimensions.get('window');
 
 function MapScene() {
-  return (
-    <ScrollView directionLockEnabled={false}
-                horizontal={true}>
-      <ScrollView>
-        <Image 
-          source={require('./images/floor_plan_2017.png')} 
-        />
-      </ScrollView>
-    </ScrollView>
+  let styles = {};
+  if (Platform.OS === 'android'){
+    styles = {width: window.width, height: window.height}
+  }
+  return(
+    <View>
+      <PhotoView
+        source={require('./images/floor_plan_2017.png')}
+        minimumZoomScale={0.5}
+        maximumZoomScale={3}
+        androidScaleType="center"
+        onLoad={() => console.log("Image loaded!")}
+        style={styles} />
+    </View>
   );
 }
 

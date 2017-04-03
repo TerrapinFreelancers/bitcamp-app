@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { View, WebView, StyleSheet } from 'react-native';
 import { colors } from '../shared/styles';
 
-const DEFAULT_URL = 'https://mentorship.bitca.mp';
+// const DEFAULT_URL = 'https://mentorship.bitca.mp';
+const DEFAULT_URL = 'https://mobile.twitter.com/bitcmp';
 
 export default class MentorsScene extends Component {
   state = {

@@ -888,7 +888,7 @@
     },
     "crypto-js": {
       "version": "3.1.9-1",
-      "from": "https://registry.npmjs.org/crypto-js/-/crypto-js-3.1.9-1.tgz",
+      "from": "crypto-js@latest",
       "resolved": "https://registry.npmjs.org/crypto-js/-/crypto-js-3.1.9-1.tgz"
     },
     "csrf": {
@@ -1309,8 +1309,7 @@
         "source-map": {
           "version": "0.2.0",
           "from": "source-map@>=0.2.0 <0.3.0",
-          "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.2.0.tgz",
-          "optional": true
+          "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.2.0.tgz"
         }
       }
     },
@@ -2973,6 +2972,11 @@
       "from": "git+https://git@github.com/yamill/react-native-orientation.git",
       "resolved": "git+https://git@github.com/yamill/react-native-orientation.git#278291739e2b7c8ab208fdf404e4b139e24b4a3f"
     },
+    "react-native-photo-view": {
+      "version": "1.2.0",
+      "from": "react-native-photo-view@1.2.0",
+      "resolved": "https://registry.npmjs.org/react-native-photo-view/-/react-native-photo-view-1.2.0.tgz"
+    },
     "react-native-scrollable-tab-view": {
       "version": "0.6.0",
       "from": "react-native-scrollable-tab-view@>=0.6.0 <0.7.0",
@@ -3039,7 +3043,7 @@
     },
     "react-tween-state": {
       "version": "0.1.5",
-      "from": "https://registry.npmjs.org/react-tween-state/-/react-tween-state-0.1.5.tgz",
+      "from": "react-tween-state@latest",
       "resolved": "https://registry.npmjs.org/react-tween-state/-/react-tween-state-0.1.5.tgz"
     },
     "read-all-stream": {

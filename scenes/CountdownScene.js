@@ -17,6 +17,7 @@ class CountdownScene extends Component {
       seconds = 24 * hour - 4 * hour + seconds;
     }
     var opacity;
+
     switch(image) {
       case 'day':
         if (seconds < 8 * hour || seconds > 18 * hour) {
