@@ -41,7 +41,11 @@ class Timer extends Component {
   }
 
   _logoPress() {
-    var presses = this.state.totalPresses + 1;
+    const eventTime = new Date(2017, 3, 7, 22, 0, 0, 0); // when hacking begins
+    var presses = 0;
+    if (new Date() > eventTime) {
+      var presses = this.state.totalPresses + 1;
+    }
     this.setState({
       totalPresses: presses,
     });
