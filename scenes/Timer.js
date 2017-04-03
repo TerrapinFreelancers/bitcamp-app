@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Text, Image, View, Dimensions, Platform, StyleSheet, ScrollView } from 'react-native';
+import { Text, Image, View, Platform, Dimensions, StyleSheet, ScrollView, TouchableHighlight } from 'react-native';
 
 import { colors } from '../shared/styles';
 import aleofy from '../shared/aleo';
+const BoldAleoText = aleofy(Text, 'Bold');
 
 const window = Dimensions.get('window');
 
@@ -22,20 +23,28 @@ class Timer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      time: new Date()
+      time: new Date(),
+      totalPresses: 0,
     };
   };
 
   componentDidMount() {
     this.timer = setInterval(() => {
       this.setState({
-        time: new Date()
+        time: new Date(),
       });
     }, 1000);
   }
 
   componentWillUnmount() {
     clearInterval(this.timer);
+  }
+
+  _logoPress() {
+    var presses = this.state.totalPresses + 1;
+    this.setState({
+      totalPresses: presses,
+    });
   }
 
   render() {
@@ -64,18 +73,33 @@ class Timer extends Component {
     const minutes = Math.floor((remain % 86400000 % 3600000) / 60000);
     const seconds = Math.floor((remain % 86400000 % 3600000 % 60000) / 1000);
 
+    var logo;
+
+    if (this.state.totalPresses < 7) {
+      logo = (
+        <TouchableHighlight 
+          onPress={this._logoPress.bind(this)}
+          underlayColor="rgba(0,0,0,0)"
+          >
+          <Image
+            source={require('./images/fire-bg-copy-copy.png')}
+            style={styles.fireBackground}>
+            <Image
+              source={require('./images/flame3.gif')}
+              style={styles.fire} />
+            <Image source={require('./images/logs.png')} />
+          </Image>
+        </TouchableHighlight>);
+    } else {
+      logo = (
+        <TimerText style={styles.api}>
+          https://jackjackjackjack.herokuapp.com/check
+        </TimerText>);
+    }
+
     return (
       <View style={styles.scene}>
-
-        <Image
-          source={require('./images/fire-bg-copy-copy.png')}
-          style={styles.fireBackground}>
-          <Image
-            source={require('./images/flame3.gif')}
-            style={styles.fire} />
-          <Image source={require('./images/logs.png')} />
-        </Image>
-
+        {logo}
         <View style={styles.row}>
           <View style={styles.col}>
             <TimerText style={numberStyles}>{days}</TimerText>
@@ -131,6 +155,9 @@ const styles = StyleSheet.create({
   },
   dhms: {
     fontSize: 15
+  },
+  api: {
+    fontSize: 25
   },
   col: {
     flex: 1,
