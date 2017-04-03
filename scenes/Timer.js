@@ -82,7 +82,7 @@ class Timer extends Component {
           underlayColor="rgba(0,0,0,0)"
           >
           <Image
-            source={require('./images/fire-bg.png')}
+            source={require('./images/fire-bg-copy-copy.png')}
             style={styles.fireBackground}>
             <Image
               source={require('./images/flame3.gif')}
@@ -92,8 +92,8 @@ class Timer extends Component {
         </TouchableHighlight>);
     } else {
       logo = (
-        <TimerText style={styles.numbers}>
-          API GOES HERE
+        <TimerText style={styles.api}>
+          https://jackjackjackjack.herokuapp.com/check
         </TimerText>);
     }
 
@@ -155,6 +155,9 @@ const styles = StyleSheet.create({
   },
   dhms: {
     fontSize: 15
+  },
+  api: {
+    fontSize: 25
   },
   col: {
     flex: 1,
