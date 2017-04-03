@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
-import { Text, Image, View, Dimensions, StyleSheet, ScrollView, TouchableHighlight } from 'react-native';
-=======
-import { Text, Image, View, Dimensions, Platform, StyleSheet, ScrollView } from 'react-native';
->>>>>>> master
+import { Text, Image, View, Platform, Dimensions, StyleSheet, ScrollView, TouchableHighlight } from 'react-native';
 
 import { colors } from '../shared/styles';
 import aleofy from '../shared/aleo';
