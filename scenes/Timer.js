@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
 import { Text, Image, View, Dimensions, StyleSheet, ScrollView, TouchableHighlight } from 'react-native';
+=======
+import { Text, Image, View, Dimensions, Platform, StyleSheet, ScrollView } from 'react-native';
+>>>>>>> master
 
 import { colors } from '../shared/styles';
 import aleofy from '../shared/aleo';
@@ -51,7 +55,12 @@ class Timer extends Component {
     const eventTime      = new Date(2017, 3, 7, 22, 0, 0, 0); // when hacking begins
     const endHackingTime = new Date(2017, 3, 9, 10, 0, 0, 0);
 
+    let numberStyles = styles.numbers;
     let remain;  // the time remaining until the next 'event' (either hacking begins or hacking ends)
+
+    if (Platform.OS === "ios"){
+      if (window.height/window.width < 1.7) numberStyles = styles.numbersIPad;
+    }
 
     if (this.state.time <= eventTime) {
       remain = eventTime.getTime() - this.state.time.getTime();
@@ -94,24 +103,22 @@ class Timer extends Component {
 
     return (
       <View style={styles.scene}>
-
         {logo}
-
         <View style={styles.row}>
           <View style={styles.col}>
-            <TimerText style={styles.numbers}>{days}</TimerText>
+            <TimerText style={numberStyles}>{days}</TimerText>
             <TimerText style={styles.dhms}>Days</TimerText>
           </View>
           <View style={styles.col}>
-            <TimerText style={styles.numbers}>{hours}</TimerText>
+            <TimerText style={numberStyles}>{hours}</TimerText>
             <TimerText style={styles.dhms}>Hours</TimerText>
           </View>
           <View style={styles.col}>
-            <TimerText style={styles.numbers}>{minutes}</TimerText>
+            <TimerText style={numberStyles}>{minutes}</TimerText>
             <TimerText style={styles.dhms}>Minutes</TimerText>
           </View>
           <View style={styles.col}>
-            <TimerText style={styles.numbers}>{seconds}</TimerText>
+            <TimerText style={numberStyles}>{seconds}</TimerText>
             <TimerText style={styles.dhms}>Seconds</TimerText>
           </View>
         </View>
@@ -139,6 +146,11 @@ const styles = StyleSheet.create({
     textShadowRadius: 5,
     color: colors.cloudWhite,
     textAlign: 'center'
+  },
+  numbersIPad:{
+    fontSize: 40,
+    marginTop: 20,
+    marginBottom: 10
   },
   numbers: {
     fontSize: 40,
