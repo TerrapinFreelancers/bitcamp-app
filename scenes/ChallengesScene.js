@@ -141,10 +141,10 @@ class ChallengesScene extends Component{
   async fetchData(){
     let savedData = [];
     let defaultData = [{
-                        challenge:"Coming soon!",
-                        image:defaultImage,
-                        name:"Challenges",
-                        prizes:""
+                        challenge: "Coming soon!",
+                        image: defaultImage,
+                        name: "Challenges",
+                        prizes: ""
                       }];
     try{
       savedData = await AsyncStorage.getItem(STORAGE_KEY);
@@ -197,12 +197,12 @@ class ChallengesScene extends Component{
                               {this.state.info && this.state.info.challenge}
                             </Text>
                             <Text style = {{fontSize:14, fontStyle: 'italic', fontFamily: 'Arial', paddingTop:10}}>
-                              Prize(s): {this.state.info && this.state.info.prizes}
+                              {this.state.info && this.state.info.prizes != "" && "Prize(s):" && this.state.info.prizes}
                             </Text>
 
                           </View>
                           <View style={styles.modalImage}>
-                            <Image style={styles.thumb} source={{uri:this.state.thumbnailSource}} />
+                            {this.state.info.prizes != "" && (<Image style={styles.thumb} source={{uri:this.state.thumbnailSource}} />)}
                           </View>
 
                         </View>
@@ -232,7 +232,10 @@ class ChallengesScene extends Component{
     let image = (<Image style={styles.thumb} source={defaultImage} />);
     console.log("ROWDATA" + JSON.stringify(rowData));
     let clippedChallenge = rowData.challenge;
-    let clippedPrizes = "Prize(s): " + rowData.prizes;
+    let clippedPrizes = "";
+    if (rowData.prizes != "") {
+      let clippedPrizes = "Prize(s): " + rowData.prizes;
+    }
     if (clippedPrizes.length > 40){
       clippedPrizes = clippedPrizes.substring(0, 37) + "...";
     }
