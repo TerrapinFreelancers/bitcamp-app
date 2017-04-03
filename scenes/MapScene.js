@@ -11,8 +11,8 @@ function MapScene() {
     <View>
       <PhotoView
         source={require('./images/floor_plan_final.png')}
-        minimumZoomScale={0.5}
-        maximumZoomScale={3}
+        minimumZoomScale={1}
+        maximumZoomScale={3.5}
         androidScaleType="fitCenter"
         onLoad={() => console.log("Image loaded!")}
         style={styles} />
