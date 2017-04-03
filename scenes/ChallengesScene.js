@@ -197,12 +197,12 @@ class ChallengesScene extends Component{
                               {this.state.info && this.state.info.challenge}
                             </Text>
                             <Text style = {{fontSize:14, fontStyle: 'italic', fontFamily: 'Arial', paddingTop:10}}>
-                              {this.state.info && this.state.info.prizes != "" && "Prize(s):" && this.state.info.prizes}
+                              {this.state.info && this.state.info.prizes !== "" && "Prize(s): " + this.state.info.prizes}
                             </Text>
 
                           </View>
                           <View style={styles.modalImage}>
-                            {this.state.info.prizes != "" && (<Image style={styles.thumb} source={{uri:this.state.thumbnailSource}} />)}
+                            {this.state.info.prizes !== "" && (<Image style={styles.thumb} source={{uri:this.state.thumbnailSource}} />)}
                           </View>
 
                         </View>
@@ -233,8 +233,8 @@ class ChallengesScene extends Component{
     console.log("ROWDATA" + JSON.stringify(rowData));
     let clippedChallenge = rowData.challenge;
     let clippedPrizes = "";
-    if (rowData.prizes != "") {
-      let clippedPrizes = "Prize(s): " + rowData.prizes;
+    if (rowData.prizes !== "") {
+      clippedPrizes = "Prize(s): " + rowData.prizes;
     }
     if (clippedPrizes.length > 40){
       clippedPrizes = clippedPrizes.substring(0, 37) + "...";
